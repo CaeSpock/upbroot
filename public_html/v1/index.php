@@ -112,7 +112,7 @@
   // echo "    <!-- Google fonts - Muli-->\n";
   echo "    <link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css?family=Muli:300,400,700\">\n";
   // echo "    <!-- theme stylesheet-->\n";
-  echo "    <link rel=\"stylesheet\" href=\"css/style.default.css\" id=\"theme-stylesheet\">\n";
+  echo "    <link rel=\"stylesheet\" href=\"css/style.upb.css\" id=\"theme-stylesheet\">\n";
   // echo "    <!-- Custom stylesheet - for your changes-->\n";
   echo "    <link rel=\"stylesheet\" href=\"css/custom.css\">\n";
   // echo "    <!-- Favicon-->\n";
