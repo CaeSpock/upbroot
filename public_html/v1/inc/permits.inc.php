@@ -4,6 +4,7 @@
   if ($surv_level_id > 1) {
     $pathsys = "pages";
     if ($action == "dashboard") { include_once("$pathsys/dashboard.inc.php"); }
+    if ($action == "changelog") { include_once("$pathsys/changelog.inc.php"); }
     if ($action == "whatis") { include_once("$pathsys/whatis.inc.php"); }
     if ($action == "updatedata") { include_once("$pathsys/updatedata.inc.php"); }
     if ($action == "updatepass") { include_once("$pathsys/updatepass.inc.php"); }
