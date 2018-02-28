@@ -1,0 +1,3 @@
+<?php
+    $dblink->close();
+?>
