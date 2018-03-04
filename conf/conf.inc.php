@@ -1,9 +1,9 @@
 <?php
   // Web Site info
   // System Name:
-    $surp_sitename = "UPB Root";
-     $surp_siteurl = "http://upbrooturl:port/";
-  $surp_siteslogan = "Sistema de Administraci&oacute;n de Servidores de la UPB";
+     $surp_sitename   = "UPB Root";
+     $surp_siteurl    = "http://upbrooturl:port/";
+     $surp_siteslogan = "Sistema de Administraci&oacute;n de Servidores de la UPB";
 
   // Site Admin name and email
   $surp_admname = "Carlos Anibarro";
@@ -32,8 +32,8 @@
   $surp_perPage = 15;
 
   // Values for the ok and no ok graphs
-    $surp_labelok = "<font color=\"#008000\"><i class=\"fa fa-check\"></i></font>";
-  $surp_labelnook = "<font color=\"#800000\"><i class=\"fa fa-times\"></i></font>";
+    $surp_labelok   = "<font color=\"#008000\"><i class=\"fa fa-check\"></i></font>";
+    $surp_labelnook = "<font color=\"#800000\"><i class=\"fa fa-times\"></i></font>";
 
   // In order to comnsider users, lets set the minimun and
   // maximun userid and groupid values
