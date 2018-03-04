@@ -270,7 +270,7 @@
   //
   /* oplogs - Funcion de logueo de operaciones
      Parametro: El texto a loguear */
-  function oplogs ($dest_username, $ot_id, $ol_flags, $ol_comment) {
+  function oplogs ($dest_username, $ot_id, $ol_flags, $ol_comment ="", $op_id=0) {
      global $pathlogops,$surp_logops,$surp_extopslog;
      global $action, $surv_user_id, $surv_user, $surv_user_name, $surv_level_id;
      global $user_ip, $user_client, $surc_user, $surc_hash;
@@ -282,13 +282,13 @@
        $insdb .= "ol_orig_user_id, ol_orig_user, ";
        $insdb .= "ol_orig_user_name, ol_orig_level_id, ol_orig_ip, ol_orig_client, ";
        $insdb .= "ol_orig_hash, ol_dest_username, ot_id, ol_flags, ";
-       $insdb .= "ol_comment, ol_action) VALUES('$date', '$time', '".$_SERVER["REQUEST_URI"]."', ";
+       $insdb .= "ol_comment, op_id, ol_action) VALUES('$date', '$time', '".$_SERVER["REQUEST_URI"]."', ";
        $insdb .= "'$surc_user', ";
        $insdb .= "'$surv_user', '$surv_user_name', '$surv_level_id', '$user_ip', ";
        $insdb .= "'$user_client', '$surc_hash', '$dest_username', '$ot_id', ";
-       $insdb .= "'$ol_flags', '$ol_comment', '$action');";
+       $insdb .= "'$ol_flags', '$ol_comment', '$op_id', '$action');";
        $insnow = db_query($insdb);
-       $log = "|$date|$time|$surc_user|$surv_user|$surv_user_name|$surv_level_id|$user_ip|$user_client|$surc_hash|$dest_username|$ot_id|$ol_flags|$ol_comment|$action|\n";
+       $log = "|$date|$time|$surc_user|$surv_user|$surv_user_name|$surv_level_id|$user_ip|$user_client|$surc_hash|$dest_username|$ot_id|$ol_flags|$ol_comment|$op_id|$action|\n";
        $local_logdirectory = $pathlogops."/".date("Y")."/".date("m");
        if (!is_dir($local_logdirectory)) { mkdir($local_logdirectory,0777,TRUE); chmod($local_logdirectory,0777); }
        $local_logfile = $local_logdirectory."/".$date.$surp_extopslog;
@@ -516,12 +516,22 @@
     global $errortext, $error, $errorgraph, $surp_labelok, $surp_labelnook;
     global $l_errorbefore, $l_errorafter;
     $in_error = 0;
-    if (empty($in_variable) || ($in_variable == "") ) {
-      $in_error = 1;
-      $errortext .= $l_errorbefore . " " . $in_text . " " . $l_errorafter . "<br />\n";
-      $errorgraph .= $surp_labelnook;
+    if (is_array($in_variable)) { 
+      if (count($in_variable) == 0) {
+        $in_error = 1;
+        $errortext .= $l_errorbefore . " " . $in_text . " " . $l_errorafter . "<br />\n";
+        $errorgraph .= $surp_labelnook;
+      } else {
+        $errorgraph .= $surp_labelok;
+      }
     } else {
-      $errorgraph .= $surp_labelok;
+      if ( ( empty($in_variable) && $in_variable != 0) || ($in_variable == "") ) {
+        $in_error = 1;
+        $errortext .= $l_errorbefore . " " . $in_text . " " . $l_errorafter . "<br />\n";
+        $errorgraph .= $surp_labelnook;
+      } else {
+        $errorgraph .= $surp_labelok;
+      }
     }
     if ($in_error == 1) {
       $error = $in_error;

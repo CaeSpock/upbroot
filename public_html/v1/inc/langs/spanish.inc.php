@@ -52,6 +52,8 @@
   $l_yesconfirm = "Si, confirmo!";
   $l_no = "No";
   $l_yes = "Si";
+  $l_remove = "Remove";
+  $l_add = "Adicionar";
 
   // Errors & Evaluations (Verifications)
   $l_verifyingvars = "Verificando variables";
@@ -66,6 +68,15 @@
   $l_nullpassword = "de la contrase&ntilde;a";
   $l_nullnewpassword = "de la contrase&ntilde;a nueva";
   $l_nullnewpassword2 = "de la confirmaci&oacute;n de la contrase&ntilde;a nueva";
+  $l_nullquotasb = "de la quota soft de bloques";
+  $l_nullquotahb = "de la quota hard de bloques";
+  $l_nullquotasi = "de la quota soft de I-Nodos";
+  $l_nullquotahi = "de la quota hard de I-Nodos";
+  $l_nullinfo = "de la informaci&oacute;n";
+  $l_nullhome = "del directorio del usuario";
+  $l_nullshell = "del shell del usuario";
+  $l_nullquota = "de la quota principal del usuario";
+  
   $l_unmatchedpasswords = "de las contrase&ntilde;as";
   $l_repdbmail = "del correo";
   $l_errorbefore = "El campo";
@@ -80,6 +91,7 @@
   $l_errornumericafter = "debe ser num&eacute;rico.";
   $l_errorrangebefore = "El camnpo del";
   $l_errorrangeafter = "no est&aacute; en el rango permitido.";
+  $l_errorusernameexists = "El nombre de usuario ya existe en el sistema.";
 
   // UpdateData
   $l_ud_pleaseupdate = "Por favor, actualice su informaci&oacute;n:";  
@@ -101,6 +113,47 @@
   // WhatIs
   $l_wi_text  = "$surp_sitename v.$surp_sitever es la interfaz web creada para configurar las opciones disponibles en el servidor.<br />\n";
   $l_wi_text .= "Originalmente fue escrito por $surp_autname<br />\n";
+
+  // Admin Users
+  $l_au_userremoval = "Eliminaci&oacuten de usuario ...";
+  $l_au_uid = "UID";
+  $l_au_gid = "GID";
+  $l_au_username = "Username";
+  $l_au_info = "Info";
+  $l_au_home = "Home";
+  $l_au_shell = "Shell";
+  $l_au_groups = "Grupos";
+  $l_au_quota  ="Quota";
+  $l_au_important = "Importante";
+  $l_au_taskscheduled = "La tarea ha sido programada";
+  $l_au_taskid = "Tarea ID";
+  $l_au_userremovalconf = "Por favor confirme que desea eliminar el siguiente usuario:";
+  $l_au_userquota = "Modificaci&oacute;n de la quota del usuario";
+  $l_au_quotasb = "Quota Soft Bloques";
+  $l_au_quotahb = "Quota Hard Bloques";
+  $l_au_quotasi = "Quota Soft I-Nodos";
+  $l_au_quotahi = "Quota Hard I-Nodos";
+  $l_au_usermodconf = "Por favor confirme la siguiente modificaci&oacute;n de usuario:";
+  $l_au_quotabnotice = "Quotas en bytes(bloques)";
+  $l_au_groupsmod = "Modificaci&oacute;n de la pertenencia de grupos del usuario:";
+  $l_au_groupscurrent = "Grupos actuales";
+  $l_au_groupsnew = "Nuevos grupos";
+  $l_au_shellmod = "Modificaci&oacute;n de shell del usuario:";
+  $l_au_infomod = "Modificaci&oacute;n de la info del usuario:";
+  $l_au_infocurrent = "Info actual";
+  $l_au_infonew = "Nueva info";
+  $l_au_useradd = "Adicionando el usuario al sistema...";
+  $l_au_useraddconf = "Por favor confirme la siguiente adici&oacute;n:";
+  $l_au_useraddition = "Creaci&oacute;n de usuario:";
+  $l_au_usernamenotice = "(No debe existir en el sistema)";
+  $l_au_passwdnotice = "(Ser&aacute;a mostrada, para que el usuario pueda configurar)";
+  $l_au_infonotice = "(Formato: Nombre completo,Oficina,tel&eacute;fono)";
+  $l_au_homenotice = "(Si deja en blanco se configurar&aacute; en /home/USUARIO)";
+  $l_au_viewuser = "Informaci&oacute;n de usuario";
+  $l_au_userscurrent = "Usuarios Actuales del Sistema:";
+  $l_au_name = "Nombre";
+  $l_au_operations = "Operaciones";
+
 
   // Aditional stuff
   $phpFileUploadErrors = array(

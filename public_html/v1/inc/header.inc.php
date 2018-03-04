@@ -37,9 +37,9 @@
   echo "    <header class=\"header\">   \n";
   echo "      <nav class=\"navbar navbar-expand-lg\">\n";
   echo "        <div class=\"container-fluid d-flex align-items-center justify-content-between\">\n";
-  echo "          <div class=\"navbar-header\"><a href=\"index.html\" class=\"navbar-brand\">\n";
+  echo "          <div class=\"navbar-header\">\n";
   echo "              <div class=\"brand-text brand-big visible text-uppercase\"><strong class=\"text-primary\">UPB</strong><strong>root</strong></div>\n";
-  echo "              <div class=\"brand-text brand-sm\"><strong class=\"text-primary\">U</strong><strong>r</strong></div></a>\n";
+  echo "              <div class=\"brand-text brand-sm\"><strong class=\"text-primary\">U</strong><strong>r</strong></div>\n";
   echo "            <button class=\"sidebar-toggle\"><i class=\"fa fa-long-arrow-left\"></i></button>\n";
   echo "          </div>\n";
   echo "          <ul class=\"right-menu list-inline no-margin-bottom\">    \n";
