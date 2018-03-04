@@ -1,25 +1,23 @@
 <?php
-       $user_ip = $_SERVER['REMOTE_ADDR'];
-     $user_host = (isset($_SERVER['REMOTE_HOST']) ? $_SERVER['REMOTE_HOST'] : null); // $_SERVER['REMOTE_HOST'];
-     $user_user = (isset($_SERVER['PHP_AUTH_USER']) ? $_SERVER['PHP_AUTH_USER'] : null); // $_SERVER['REMOTE_USER'];
-  $user_client = $_SERVER['HTTP_USER_AGENT'];
+  $user_ip      = $_SERVER['REMOTE_ADDR'];
+  $user_host    = (isset($_SERVER['REMOTE_HOST']) ? $_SERVER['REMOTE_HOST'] : null); // $_SERVER['REMOTE_HOST'];
+  $user_user    = (isset($_SERVER['PHP_AUTH_USER']) ? $_SERVER['PHP_AUTH_USER'] : null); // $_SERVER['REMOTE_USER'];
+  $user_client  = $_SERVER['HTTP_USER_AGENT'];
   date_default_timezone_set('America/La_Paz');
-            $date = date("Y-m-d");
-             $time = date("H:i:s");
-         $timediff = 4*60*60;
-         $datebol = gmdate("Y-m-d", time()-$timediff);
-          $timebol = gmdate("H:i:s", time()-$timediff);
-          $PHPSELF = $_SERVER["PHP_SELF"];
-       $REQUESTURI = $_SERVER["REQUEST_URI"];
-   session_start();
-   $user_session = session_id();
+  $date         = date("Y-m-d");
+  $time         = date("H:i:s");
+  $timediff     = 4*60*60;
+  $datebol      = gmdate("Y-m-d", time()-$timediff);
+  $timebol      = gmdate("H:i:s", time()-$timediff);
+  session_start();
+  $user_session = session_id();
   header('Content-Type: text/html; charset=iso-8859-1');
 
-     $pathinc = "inc";
-     $pathimg = "img";
+  $pathinc    = "inc";
+  $pathimg    = "img";
   $pathlogops = "/home/upbroot/logs/operations";
   $pathlogsql = "/home/upbroot/logs/sql";
-    $pathppal = ".";
+  $pathppal   = ".";
 
   // This include uses the full path to the file, as its loated outside of the web directory
   include_once("/home/upbroot/conf/conf.inc.php");
@@ -28,18 +26,22 @@
   include_once("$pathinc/dbopen.inc.php");
 
   // Clear the main variables and cookie values
-  $surc_user = null;
-  $surc_hash = null;
-  $surv_user = null;
-  $surv_user_id = null;
-  $surv_user_name = null;
+  $surc_user        = null;
+  $surc_hash        = null;
+  $surv_user        = null;
+  $surv_user_id     = null;
+  $surv_user_name   = null;
   $surv_user_status = null;
-  $surv_level_id = null;
+  $surv_level_id    = null;
 
   // Lets receive the variables
   $action = receive_variable("GET", "action", "STRING", 15);
   $surc_user = receive_variable("SESSION", "surc_user", "STRING", 32);
   $surc_hash = receive_variable("SESSION", "surc_hash", "STRING", 32);
+
+  // Some constants
+  $PHPSELF      = $_SERVER["PHP_SELF"];
+  $REQUESTURI   = $_SERVER["REQUEST_URI"];
 
   if ($action == "logout") {
     // Ok its logged in, lets get their info for the log and then lets log the user out
