@@ -46,7 +46,7 @@
     echo "[".date("Y-m-i H:i:s")."] -----------------------------------\n";
     echo "[".date("Y-m-i H:i:s")."]   Marking operation as been processed\n";
     $os = "update OPERATIONS set os_id='2' where op_id='$po->op_id' limit 1;";
-    // *CAE* $doit = db_query($os);
+    $doit = db_query($os);
     $return_var = "";
     if ($po->ot_id==9) {
       // We Need to add a new user
@@ -75,7 +75,6 @@
       $s_log .= "'$fecha', '$hora', '$po->op_id', '$command', ";
       $s_log .= "'$outputstring', '$return_var');";
       $w_log = db_query($s_log);
-      $return_var = 0; // *CAE*
       if ($return_var == 0) {
         // Only if this was successfull we set the user password and quota
         $command = "/usr/bin/echo \"$rt_password\" | /usr/bin/passwd --stdin $rt_login";
@@ -242,12 +241,42 @@
       $s_log .= "'$fecha', '$hora', '$po->op_id', '$command', ";
       $s_log .= "'$outputstring', '$return_var');";
       $w_log = db_query($s_log);
+    } elseif ($po->ot_id==18) {
+      // This is a group additing!
+      $command = "/usr/sbin/groupadd $po->ot_d_username";
+      exec($command, $output, $return_var);
+      $counter = 0;
+      $outputstring = "";
+      while ($counter < count($output)) {
+        $outputstring .= $output[$counter];
+        $counter++;
+      }
+      $s_log  = "insert into TRANSACTIONLOG (tl_date, tl_time, op_id, ";
+      $s_log .= "tl_command, tl_output, tl_returnvar) values(";
+      $s_log .= "'$fecha', '$hora', '$po->op_id', '$command', ";
+      $s_log .= "'$outputstring', '$return_var');";
+      $w_log = db_query($s_log);
+    } elseif ($po->ot_id==19) {
+      // This is a group deletion!
+      $command = "/usr/sbin/groupdel $po->ot_d_username";
+      exec($command, $output, $return_var);
+      $counter = 0;
+      $outputstring = "";
+      while ($counter < count($output)) {
+        $outputstring .= $output[$counter];
+        $counter++;
+      }
+      $s_log  = "insert into TRANSACTIONLOG (tl_date, tl_time, op_id, ";
+      $s_log .= "tl_command, tl_output, tl_returnvar) values(";
+      $s_log .= "'$fecha', '$hora', '$po->op_id', '$command', ";
+      $s_log .= "'$outputstring', '$return_var');";
+      $w_log = db_query($s_log);
     }
     echo "[".date("Y-m-i H:i:s")."]   Marking operation as finished\n";
     $return_var = str_replace("\n", "", $return_var);
-    $os  = "update OPERATIONS set os_id='3' where op_id='$po->op_id' ";
-    $os .= "ot_d_result='$return_var' limit 1;";
-    // *CAE* $doit = db_query($os);
+    $os  = "update OPERATIONS set os_id='3', ot_d_result='$return_var' ";
+    $os .= " where op_id='$po->op_id' limit 1;";
+    $doit = db_query($os);
     echo "[".date("Y-m-i H:i:s")."] -----------------------------------\n";
   }
   // Lock acquired; let's write our PID to the lock file for the convenience
