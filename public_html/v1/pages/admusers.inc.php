@@ -695,7 +695,7 @@
       $error = 0;
       $errortext = "";
       $errorgraph = "";
-      eval_null("$in_username", "Username");
+      eval_null("$in_username", "$l_au_username");
       // Lets check if the system already has this user
       $username_exists = 0;
       $command = "/usr/bin/cat /etc/passwd";
@@ -919,7 +919,7 @@
     $userremoval  = "<form method=\"post\" action=\"".$_SERVER['PHP_SELF']."?action=admusers\">\n";
     $userremoval .= "<input name=\"in_user\" value=\"$in_user\" type=\"hidden\">\n";
     $userremoval .= "<input name=\"in_deluser\" value=\"1\" type=\"hidden\">\n";
-    $userremoval .= "<button type=\"submit\" class=\"btn btn-sm btn-link\"><i class=\"fa fa-times\"></i> Presione ac&aacute; para eliminar el usuario</button>\n";
+    $userremoval .= "<button type=\"submit\" class=\"btn btn-sm btn-link\"><i class=\"fa fa-times\"></i> $l_au_removeuser</button>\n";
     $userremoval .= "</form>\n";
     table_row("fa fa-user-times", "$l_remove:", "", "none", "$userremoval");
     echo "  </table>\n";
