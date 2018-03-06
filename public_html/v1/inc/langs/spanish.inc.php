@@ -92,6 +92,7 @@
   $l_errorrangebefore = "El camnpo del";
   $l_errorrangeafter = "no est&aacute; en el rango permitido.";
   $l_errorusernameexists = "El nombre de usuario ya existe en el sistema.";
+  $l_errorgrouonamexists = "El nombre del grupo ya existe en el sistema.";
 
   // UpdateData
   $l_ud_pleaseupdate = "Por favor, actualice su informaci&oacute;n:";  
@@ -153,7 +154,17 @@
   $l_au_userscurrent = "Usuarios Actuales del Sistema:";
   $l_au_name = "Nombre";
   $l_au_operations = "Operaciones";
+  $l_au_removeuser = "Presione ac&aacute; para eliminar el usuario";
 
+  // Admin Groups
+  $l_ag_groupname = "Nombre del Grupo";
+  $l_ag_groupmembers ="Miembros del grupo";
+  $l_ag_operations = "Operaciones";
+  $l_ag_viewgroup = "Informaci&oacute;n de grupo";
+  $l_ag_removegroup = "Presione ac&aacute; para eliminar el grupo";
+  $l_ag_groupremovalconf = "Por favor confirme que desea eliminar el siguiente grupo:";
+  $l_ag_groupadd = "Adici&oacute;n de nuevo grupo:";
+  $l_ag_groupaddconf = "Por favor confirme la siguiente adici&oacute;n de grupo:";
 
   // Aditional stuff
   $phpFileUploadErrors = array(
