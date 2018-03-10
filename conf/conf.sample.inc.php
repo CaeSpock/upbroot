@@ -34,7 +34,7 @@
 
   // Constants
   // How many lines to display on big items
-  $surp_perPage = 15;
+  $surp_perPage = 50;
 
   // Values for the ok and no ok graphs
     $surp_labelok   = "<font color=\"#008000\"><i class=\"fa fa-check\"></i></font>";
