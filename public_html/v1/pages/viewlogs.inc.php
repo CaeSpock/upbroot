@@ -85,6 +85,9 @@
       $vl_fromuser = $in_fromuser;
       if ($in_fromuser == "ANYUSER") {
         $vl_fromuser = "Cualquier usuario";
+      } elseif ($in_fromuser == "") {
+        $vl_fromuser = "--";
+        $sl .= "and ol.ol_orig_user_id='$in_fromuser' ";
       } else {
         $sl .= "and ol.ol_orig_user_id='$in_fromuser' ";
       }
@@ -93,7 +96,10 @@
       if ($in_opover == "ANYUSER") {
         $vl_opover = $l_vl_anyuser;
       } elseif ($in_opover == "ANYGROUP") {
-        $vl_opover == $l_vl_anygroup;
+        $vl_opover = $l_vl_anygroup;
+      } elseif ($in_opover == "") {
+        $vl_opover = "--";
+        $sl .= "and ol.ol_dest_username='$in_opover' ";
       } else {
         $sl .= "and ol.ol_dest_username='$in_opover' ";
       }
@@ -101,6 +107,9 @@
       $vl_optype = $in_optype;
       if ($in_optype == "ANYTYPE") {
         $vl_optype = "Cualquier tipo";
+      } elseif ($in_optype == "") {
+        $vl_optype = "--";
+        $sl .= "and ol.ot_id='$in_optype' ";
       } else {
         $sl .= "and ol.ot_id='$in_optype' ";
       }
