@@ -54,6 +54,8 @@
   $l_yes = "Si";
   $l_remove = "Remove";
   $l_add = "Adicionar";
+  $l_today = "Hoy";
+  $l_search = "Buscar";
 
   // Errors & Evaluations (Verifications)
   $l_verifyingvars = "Verificando variables";
@@ -147,7 +149,7 @@
   $l_au_useraddconf = "Por favor confirme la siguiente adici&oacute;n:";
   $l_au_useraddition = "Creaci&oacute;n de usuario:";
   $l_au_usernamenotice = "(No debe existir en el sistema)";
-  $l_au_passwdnotice = "(Ser&aacute;a mostrada, para que el usuario pueda configurar)";
+  $l_au_passwdnotice = "(Ser&aacute; mostrada, para que el usuario pueda configurar)";
   $l_au_infonotice = "(Formato: Nombre completo,Oficina,tel&eacute;fono)";
   $l_au_homenotice = "(Si deja en blanco se configurar&aacute; en /home/USUARIO)";
   $l_au_viewuser = "Informaci&oacute;n de usuario";
@@ -165,6 +167,37 @@
   $l_ag_groupremovalconf = "Por favor confirme que desea eliminar el siguiente grupo:";
   $l_ag_groupadd = "Adici&oacute;n de nuevo grupo:";
   $l_ag_groupaddconf = "Por favor confirme la siguiente adici&oacute;n de grupo:";
+
+  // ViewLogs
+  $l_vl_opdetail = "Detalle de Operaci&oacute;n";
+  $l_vl_datetime = "Fecha Hora";
+  $l_vl_command = "Comando";
+  $l_vl_output = "Salida";
+  $l_vl_returnvar = "Retorno;";
+  $l_vl_opinfo = "Informaci&oacute;n de Operaci&oacute;n:";
+  $l_vl_operation = "Operaci&oacute;n";
+  $l_vl_r_user = "Iniciada por";
+  $l_vl_d_user = "Cuenta destino";
+  $l_vl_optype = "Tipo";
+  $l_vl_flags = "Opciones";
+  $l_vl_result = "Resultado";
+  $l_vl_status = "Estado";
+  $l_vl_viewdetail = "Ver detalle de la operaci&oacute;n";
+  $l_vl_searchresult = "Resultados de su b&uacute;squeda";
+  $l_vl_daterange = "Rango de Fechas";
+  $l_vl_anyuser = "Cualquier usuario";
+  $l_vl_anygroup = "Cualquier grupo";
+  $l_vl_opover = "Operaciones hechas sobre";
+  $l_vl_optypef = "Tipo de Operaci&oacute;n";
+  $l_vl_shresults = "Resultados";
+  $l_vl_id = "ID";
+  $l_vl_opby ="Por";
+  $l_vl_opovers = "Sobre";
+  $l_vl_opid = "Op";
+  $l_vl_detailsearch = "Por favor detalle su b&uacute;squeda:";
+  $l_vl_opfrom ="Operaciones hechas por";
+  $l_vl_anyop = "Cualquier Op";
+
 
   // Aditional stuff
   $phpFileUploadErrors = array(
