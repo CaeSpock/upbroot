@@ -229,7 +229,7 @@
     echo "<div class=\"table-responsive-sm\">\n";
     echo "  <table class=\"table table-sm table-hover\">\n";
     echo "  <theader>\n";
-    echo "  <tr>\n";
+    echo "  <tr class=\"bg-success text-light font-weight-bold\">\n";
     echo "   <td>$l_au_gid</td>\n";
     echo "   <td>$l_ag_groupname</td>\n";
     echo "   <td>$l_ag_operations</td>\n";
