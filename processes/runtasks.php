@@ -75,9 +75,12 @@
       $s_log .= "'$fecha', '$hora', '$po->op_id', '$command', ";
       $s_log .= "'$outputstring', '$return_var');";
       $w_log = db_query($s_log);
+      $return_vars = $return_var;
       if ($return_var == 0) {
         // Only if this was successfull we set the user password and quota
         $command = "/usr/bin/echo \"$rt_password\" | /usr/bin/passwd --stdin $rt_login";
+        unset($output);
+        unset($return_var);
         exec($command, $output, $return_var);
         $counter = 0;
         $outputstring = "";
@@ -85,12 +88,15 @@
           $outputstring .= $output[$counter];
           $counter++;
         }
+        $return_vars .= $return_var;
         $s_log  = "insert into TRANSACTIONLOG (tl_date, tl_time, op_id, ";
         $s_log .= "tl_command, tl_output, tl_returnvar) values(";
         $s_log .= "'$fecha', '$hora', '$po->op_id', '$command', ";
         $s_log .= "'$outputstring', '$return_var');";
         $w_log = db_query($s_log);
         $command = "/usr/bin/passwd -e $rt_login";
+        unset($output);
+        unset($return_var);
         exec($command, $output, $return_var);
         $counter = 0;
         $outputstring = "";
@@ -98,12 +104,15 @@
           $outputstring .= $output[$counter];
           $counter++;
         }
+        $return_vars .= $return_var;
         $s_log  = "insert into TRANSACTIONLOG (tl_date, tl_time, op_id, ";
         $s_log .= "tl_command, tl_output, tl_returnvar) values(";
         $s_log .= "'$fecha', '$hora', '$po->op_id', '$command', ";
         $s_log .= "'$outputstring', '$return_var');";
         $w_log = db_query($s_log);
         $command = "/usr/sbin/xfs_quota -x -c \"limit bsoft=000 bhard=$rt_quota isoft=000 ihard=000 $rt_login\" /";
+        unset($output);
+        unset($return_var);
         exec($command, $output, $return_var);
         $counter = 0;
         $outputstring = "";
@@ -111,6 +120,7 @@
           $outputstring .= $output[$counter];
           $counter++;
         }
+        $return_vars .= $return_var;
         $s_log  = "insert into TRANSACTIONLOG (tl_date, tl_time, op_id, ";
         $s_log .= "tl_command, tl_output, tl_returnvar) values(";
         $s_log .= "'$fecha', '$hora', '$po->op_id', '$command', ";
@@ -118,7 +128,7 @@
         $w_log = db_query($s_log);
       }
       unset($output);
-      unset($return_var);
+      $return_var = $return_vars;
     } elseif ($po->ot_id==11) {
       // This is an info change!
       $command = "/usr/sbin/usermod --comment \"$po->ot_d_flags\" $po->ot_d_username";
@@ -166,11 +176,13 @@
         if ($au_gid>=$surp_ugmin and $au_gid<$surp_ugmax) {
           if ($au_group != $po->ot_d_username) {
             $groupdel = "/usr/bin/gpasswd -d $po->ot_d_username $au_group";
+            unset($output);
+            unset($return_var);
             exec($groupdel, $output, $return_var);
             $commands .= $groupdel."\n";
             $counter2 = 0;
-            while ($counter < count($output)) {
-              $outputs .= $output[$counter]."\n";
+            while ($counter2 < count($output)) {
+              $outputs .= $output[$counter2]."\n";
               $counter2++;
             }
             $return_vars .= $return_var."\n"; 
@@ -193,11 +205,14 @@
       while ($counter < count($procgroups)) {
         if ($procgroups[$counter]!="") {
           $groupadd = "/usr/bin/gpasswd -a $po->ot_d_username ".$procgroups[$counter];
+          unset($output);
+          unset($return_var);
+          echo "ejcutare: $groupadd\n";
           exec($groupadd, $output, $return_var);
           $commands .= $groupadd."\n";
           $counter2 = 0;
-          while ($counter < count($output)) {
-            $outputs .= $output[$counter]."\n";
+          while ($counter2 < count($output)) {
+            $outputs .= $output[$counter2]."\n";
             $counter2++;
           }
           $return_vars .= $return_var."\n";
