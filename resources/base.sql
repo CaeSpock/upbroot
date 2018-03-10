@@ -91,29 +91,32 @@ CREATE TABLE `OPERATIONTYPES` (
   `ot_id` int(11) NOT NULL AUTO_INCREMENT,
   `ot_short` varchar(100) NOT NULL,
   `ot_value` varchar(250) NOT NULL,
+  `ot_showinlogs` enum('0','1') NOT NULL DEFAULT '0',
   PRIMARY KEY (`ot_id`)
 );
 
 LOCK TABLES `OPERATIONTYPES` WRITE;
-INSERT INTO `OPERATIONTYPES` (`ot_id`, `ot_short`, `ot_value`) VALUES (1,'Login','Ingreso al Sistema');
-INSERT INTO `OPERATIONTYPES` (`ot_id`, `ot_short`, `ot_value`) VALUES (2,'LogOut','Salida del Sistema');
-INSERT INTO `OPERATIONTYPES` (`ot_id`, `ot_short`, `ot_value`) VALUES (3,'Forced LogOut','Salida Forzada del Sistema');
-INSERT INTO `OPERATIONTYPES` (`ot_id`, `ot_short`, `ot_value`) VALUES (4,'LoadPage','Cargar Pagina');
-INSERT INTO `OPERATIONTYPES` (`ot_id`, `ot_short`, `ot_value`) VALUES (5,'OpenPage','Pagina Abierta');
-INSERT INTO `OPERATIONTYPES` (`ot_id`, `ot_short`, `ot_value`) VALUES (6,'UpdateData','Actualizar Datos Personales');
-INSERT INTO `OPERATIONTYPES` (`ot_id`, `ot_short`, `ot_value`) VALUES (7,'UpdatePass','Actualizar Contrasena');
-INSERT INTO `OPERATIONTYPES` (`ot_id`, `ot_short`, `ot_value`) VALUES (8,'AdmUsers_ViewAll','AdmUsers Ver usuarios del sistema');
-INSERT INTO `OPERATIONTYPES` (`ot_id`, `ot_short`, `ot_value`) VALUES (9,'AdmUsers_AddUser','AdmUsers Adicionar usuario');
-INSERT INTO `OPERATIONTYPES` (`ot_id`, `ot_short`, `ot_value`) VALUES (10,'AdmUsers_ViewUser','AdmUsers Ver info de un usuario');
-INSERT INTO `OPERATIONTYPES` (`ot_id`, `ot_short`, `ot_value`) VALUES (11,'AdmUsers_ModUserInfo','AdmUsers Modificar info de un usuario');
-INSERT INTO `OPERATIONTYPES` (`ot_id`, `ot_short`, `ot_value`) VALUES (12,'AdmUsers_ModUserShell','AdmUsers Modificar shell de un usuario');
-INSERT INTO `OPERATIONTYPES` (`ot_id`, `ot_short`, `ot_value`) VALUES (13,'AdmUsers_ModUserGroups','AdmUsers Modificar grupos de un usuario');
-INSERT INTO `OPERATIONTYPES` (`ot_id`, `ot_short`, `ot_value`) VALUES (14,'AdmUsers_ModUserQuota','AdmUsers Modificar quota de un usuario');
-INSERT INTO `OPERATIONTYPES` (`ot_id`, `ot_short`, `ot_value`) VALUES (15,'AdmUsersDelUser','AdmUsers Eliminar usuario');
-INSERT INTO `OPERATIONTYPES` (`ot_id`, `ot_short`, `ot_value`) VALUES (16,'AdmGroups_ViewAll','AdmGroups Ver grupos del sistema');
-INSERT INTO `OPERATIONTYPES` (`ot_id`, `ot_short`, `ot_value`) VALUES (17,'AdmGroups_ViewGroup','AdmGroups Ver info de un grupo ');
-INSERT INTO `OPERATIONTYPES` (`ot_id`, `ot_short`, `ot_value`) VALUES (18,'AdmGroups_AddGroup','AdmGroups Adicionar grupo');
-INSERT INTO `OPERATIONTYPES` (`ot_id`, `ot_short`, `ot_value`) VALUES (19,'AdmGroups_DelGroup','AdmGroups Eliminar grupo');
+INSERT INTO `OPERATIONTYPES` (`ot_id`, `ot_short`, `ot_value`, `ot_showinlogs`) VALUES (1,'Login','Ingreso al Sistema','0');
+INSERT INTO `OPERATIONTYPES` (`ot_id`, `ot_short`, `ot_value`, `ot_showinlogs`) VALUES (2,'LogOut','Salida del Sistema','0');
+INSERT INTO `OPERATIONTYPES` (`ot_id`, `ot_short`, `ot_value`, `ot_showinlogs`) VALUES (3,'Forced LogOut','Salida Forzada del Sistema','0');
+INSERT INTO `OPERATIONTYPES` (`ot_id`, `ot_short`, `ot_value`, `ot_showinlogs`) VALUES (4,'LoadPage','Cargar Pagina','0');
+INSERT INTO `OPERATIONTYPES` (`ot_id`, `ot_short`, `ot_value`, `ot_showinlogs`) VALUES (5,'OpenPage','Pagina Abierta','0');
+INSERT INTO `OPERATIONTYPES` (`ot_id`, `ot_short`, `ot_value`, `ot_showinlogs`) VALUES (6,'UpdateData','Actualizar Datos Personales','1');
+INSERT INTO `OPERATIONTYPES` (`ot_id`, `ot_short`, `ot_value`, `ot_showinlogs`) VALUES (7,'UpdatePass','Actualizar Contrasena','1');
+INSERT INTO `OPERATIONTYPES` (`ot_id`, `ot_short`, `ot_value`, `ot_showinlogs`) VALUES (9,'AdmUsers_AddUser','AdmUsers Adicionar usuario','1');
+INSERT INTO `OPERATIONTYPES` (`ot_id`, `ot_short`, `ot_value`, `ot_showinlogs`) VALUES (10,'AdmUsers_ViewUser','AdmUsers Ver info de un usuario','1');
+INSERT INTO `OPERATIONTYPES` (`ot_id`, `ot_short`, `ot_value`, `ot_showinlogs`) VALUES (11,'AdmUsers_ModUserInfo','AdmUsers Modificar info de un usuario','1');
+INSERT INTO `OPERATIONTYPES` (`ot_id`, `ot_short`, `ot_value`, `ot_showinlogs`) VALUES (12,'AdmUsers_ModUserShell','AdmUsers Modificar shell de un usuario','1');
+INSERT INTO `OPERATIONTYPES` (`ot_id`, `ot_short`, `ot_value`, `ot_showinlogs`) VALUES (13,'AdmUsers_ModUserGroups','AdmUsers Modificar grupos de un usuario','1');
+INSERT INTO `OPERATIONTYPES` (`ot_id`, `ot_short`, `ot_value`, `ot_showinlogs`) VALUES (14,'AdmUsers_ModUserQuota','AdmUsers Modificar quota de un usuario','1');
+INSERT INTO `OPERATIONTYPES` (`ot_id`, `ot_short`, `ot_value`, `ot_showinlogs`) VALUES (15,'AdmUsers_DelUser','AdmUsers Eliminar usuario','1');
+INSERT INTO `OPERATIONTYPES` (`ot_id`, `ot_short`, `ot_value`, `ot_showinlogs`) VALUES (16,'AdmGroups_ViewAll','AdmGroups Ver grupos del sistema','0');
+INSERT INTO `OPERATIONTYPES` (`ot_id`, `ot_short`, `ot_value`, `ot_showinlogs`) VALUES (17,'AdmGroups_ViewGroup','AdmGroups Ver info de un grupo','1');
+INSERT INTO `OPERATIONTYPES` (`ot_id`, `ot_short`, `ot_value`, `ot_showinlogs`) VALUES (18,'AdmGroups_AddGroup','AdmGroups Adicionar grupo','1');
+INSERT INTO `OPERATIONTYPES` (`ot_id`, `ot_short`, `ot_value`, `ot_showinlogs`) VALUES (19,'AdmGroups_DelGroup','AdmGroups Eliminar grupo','1');
+INSERT INTO `OPERATIONTYPES` (`ot_id`, `ot_short`, `ot_value`, `ot_showinlogs`) VALUES (20,'ViewLogs_Search','Buscar logs','1');
+INSERT INTO `OPERATIONTYPES` (`ot_id`, `ot_short`, `ot_value`, `ot_showinlogs`) VALUES (21,'ViewLogs_OpInfo','Ver Informacion de Operacion','1');
+INSERT INTO `OPERATIONTYPES` (`ot_id`, `ot_short`, `ot_value`, `ot_showinlogs`) VALUES (22,'ViewLogs_OpDetail','Ver Detalle de Operacion','1');
 UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `OPLOGS`;
@@ -167,10 +170,10 @@ CREATE TABLE `USERLEVELS` (
 
 LOCK TABLES `USERLEVELS` WRITE;
 INSERT INTO `USERLEVELS` (`level_id`, `level_name`) VALUES (1,'Usuario');
-INSERT INTO `USERLEVELS` (`level_id`, `level_name`) VALUES (30,'Cocina');
-INSERT INTO `USERLEVELS` (`level_id`, `level_name`) VALUES (40,'Sales');
-INSERT INTO `USERLEVELS` (`level_id`, `level_name`) VALUES (50,'Administrador');
-INSERT INTO `USERLEVELS` (`level_id`, `level_name`) VALUES (80,'Gerencia');
+INSERT INTO `USERLEVELS` (`level_id`, `level_name`) VALUES (20,'Alumno');
+INSERT INTO `USERLEVELS` (`level_id`, `level_name`) VALUES (40,'Docente');
+INSERT INTO `USERLEVELS` (`level_id`, `level_name`) VALUES (60,'Alumno Administrador');
+INSERT INTO `USERLEVELS` (`level_id`, `level_name`) VALUES (80,'Docente Administrador');
 INSERT INTO `USERLEVELS` (`level_id`, `level_name`) VALUES (100,'Administrador del Sistema');
 UNLOCK TABLES;
 
