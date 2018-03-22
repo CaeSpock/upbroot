@@ -105,10 +105,10 @@ INSERT INTO `OPERATIONTYPES` (`ot_id`, `ot_short`, `ot_value`, `ot_showinlogs`) 
 INSERT INTO `OPERATIONTYPES` (`ot_id`, `ot_short`, `ot_value`, `ot_showinlogs`) VALUES (7,'UpdatePass','Actualizar Contrasena','1');
 INSERT INTO `OPERATIONTYPES` (`ot_id`, `ot_short`, `ot_value`, `ot_showinlogs`) VALUES (9,'AdmUsers_AddUser','AdmUsers Adicionar usuario','1');
 INSERT INTO `OPERATIONTYPES` (`ot_id`, `ot_short`, `ot_value`, `ot_showinlogs`) VALUES (10,'AdmUsers_ViewUser','AdmUsers Ver info de un usuario','1');
-INSERT INTO `OPERATIONTYPES` (`ot_id`, `ot_short`, `ot_value`, `ot_showinlogs`) VALUES (11,'AdmUsers_ModUserInfo','AdmUsers Modificar info de un usuario','1');
-INSERT INTO `OPERATIONTYPES` (`ot_id`, `ot_short`, `ot_value`, `ot_showinlogs`) VALUES (12,'AdmUsers_ModUserShell','AdmUsers Modificar shell de un usuario','1');
-INSERT INTO `OPERATIONTYPES` (`ot_id`, `ot_short`, `ot_value`, `ot_showinlogs`) VALUES (13,'AdmUsers_ModUserGroups','AdmUsers Modificar grupos de un usuario','1');
-INSERT INTO `OPERATIONTYPES` (`ot_id`, `ot_short`, `ot_value`, `ot_showinlogs`) VALUES (14,'AdmUsers_ModUserQuota','AdmUsers Modificar quota de un usuario','1');
+INSERT INTO `OPERATIONTYPES` (`ot_id`, `ot_short`, `ot_value`, `ot_showinlogs`) VALUES (11,'AdmUsers_UpdUserInfo','AdmUsers Modificar info de un usuario','1');
+INSERT INTO `OPERATIONTYPES` (`ot_id`, `ot_short`, `ot_value`, `ot_showinlogs`) VALUES (12,'AdmUsers_UpdUserShell','AdmUsers Modificar shell de un usuario','1');
+INSERT INTO `OPERATIONTYPES` (`ot_id`, `ot_short`, `ot_value`, `ot_showinlogs`) VALUES (13,'AdmUsers_UpdUserGroups','AdmUsers Modificar grupos de un usuario','1');
+INSERT INTO `OPERATIONTYPES` (`ot_id`, `ot_short`, `ot_value`, `ot_showinlogs`) VALUES (14,'AdmUsers_UpdUserQuota','AdmUsers Modificar quota de un usuario','1');
 INSERT INTO `OPERATIONTYPES` (`ot_id`, `ot_short`, `ot_value`, `ot_showinlogs`) VALUES (15,'AdmUsers_DelUser','AdmUsers Eliminar usuario','1');
 INSERT INTO `OPERATIONTYPES` (`ot_id`, `ot_short`, `ot_value`, `ot_showinlogs`) VALUES (16,'AdmGroups_ViewAll','AdmGroups Ver grupos del sistema','0');
 INSERT INTO `OPERATIONTYPES` (`ot_id`, `ot_short`, `ot_value`, `ot_showinlogs`) VALUES (17,'AdmGroups_ViewGroup','AdmGroups Ver info de un grupo','1');
@@ -117,6 +117,8 @@ INSERT INTO `OPERATIONTYPES` (`ot_id`, `ot_short`, `ot_value`, `ot_showinlogs`) 
 INSERT INTO `OPERATIONTYPES` (`ot_id`, `ot_short`, `ot_value`, `ot_showinlogs`) VALUES (20,'ViewLogs_Search','Buscar logs','1');
 INSERT INTO `OPERATIONTYPES` (`ot_id`, `ot_short`, `ot_value`, `ot_showinlogs`) VALUES (21,'ViewLogs_OpInfo','Ver Informacion de Operacion','1');
 INSERT INTO `OPERATIONTYPES` (`ot_id`, `ot_short`, `ot_value`, `ot_showinlogs`) VALUES (22,'ViewLogs_OpDetail','Ver Detalle de Operacion','1');
+INSERT INTO `OPERATIONTYPES` (`ot_id`, `ot_short`, `ot_value`, `ot_showinlogs`) VALUES (23,'AdmSysUsers_UpdUser','AdmSysUsers Modificar usuario de sistema','1');
+INSERT INTO `OPERATIONTYPES` (`ot_id`, `ot_short`, `ot_value`, `ot_showinlogs`) VALUES (24,'AdmSysUsers_AddUser','AdmSysUsers Adicionar usuario de sistema','1');
 UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `OPLOGS`;
