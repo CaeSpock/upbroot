@@ -110,7 +110,7 @@
         $s_log .= "'$fecha', '$hora', '$po->op_id', '$command', ";
         $s_log .= "'$outputstring', '$return_var');";
         $w_log = db_query($s_log);
-        $command = "/usr/sbin/xfs_quota -x -c \"limit bsoft=000 bhard=$rt_quota isoft=000 ihard=000 $rt_login\" /";
+        $command = "/usr/sbin/xfs_quota -x -c \"limit bsoft=000 bhard=$rt_quota isoft=000 ihard=000 $rt_login\" /home";
         unset($output);
         unset($return_var);
         exec($command, $output, $return_var);
@@ -228,7 +228,7 @@
     } elseif ($po->ot_id==14) {
       // This is a user quota change!
       list($rt_bsq, $rt_bhq, $rt_isq, $rt_ihq)=explode("|", $po->ot_d_flags);
-      $command = "/usr/sbin/xfs_quota -x -c \"limit bsoft=$rt_bsq bhard=$rt_bhq isoft=$rt_isq ihard=$rt_ihq $po->ot_d_username\" /";
+      $command = "/usr/sbin/xfs_quota -x -c \"limit bsoft=$rt_bsq bhard=$rt_bhq isoft=$rt_isq ihard=$rt_ihq $po->ot_d_username\" /home";
       exec($command, $output, $return_var);
       $counter = 0;
       $outputstring = "";
