@@ -78,6 +78,10 @@
   $l_nullhome = "del directorio del usuario";
   $l_nullshell = "del shell del usuario";
   $l_nullquota = "de la quota principal del usuario";
+  $l_nullname = "del nombre";
+  $l_nullcity = "de la ciudad";
+  $l_nulldepartment = "del departamento";
+  $l_nullstatus = "del estado";
   
   $l_unmatchedpasswords = "de las contrase&ntilde;as";
   $l_repdbmail = "del correo";
@@ -148,7 +152,7 @@
   $l_au_useradd = "Adicionando el usuario al sistema...";
   $l_au_useraddconf = "Por favor confirme la siguiente adici&oacute;n:";
   $l_au_useraddition = "Creaci&oacute;n de usuario:";
-  $l_au_usernamenotice = "(No debe existir en el sistema)";
+  $l_au_usernamenotice = "(No debe existir en el sistema, use min&uacute;sculas)";
   $l_au_passwdnotice = "(Ser&aacute; mostrada, para que el usuario pueda configurar)";
   $l_au_infonotice = "(Formato: Nombre completo,Oficina,tel&eacute;fono)";
   $l_au_homenotice = "(Si deja en blanco se configurar&aacute; en /home/USUARIO)";
@@ -167,6 +171,7 @@
   $l_ag_groupremovalconf = "Por favor confirme que desea eliminar el siguiente grupo:";
   $l_ag_groupadd = "Adici&oacute;n de nuevo grupo:";
   $l_ag_groupaddconf = "Por favor confirme la siguiente adici&oacute;n de grupo:";
+  $l_ag_currentgroups = "Lista de grupos actuales en el sistema:";
 
   // ViewLogs
   $l_vl_opdetail = "Detalle de Operaci&oacute;n";
