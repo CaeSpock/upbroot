@@ -62,7 +62,7 @@
       $aup_groups = $results[0];
       unset($results);
       table_row("fa fa-users", "$l_au_groups:", "", "none", "$aup_groups");
-      $command = "/usr/bin/sudo /usr/bin/quota -vs -u $aup_username";
+      $command = "/usr/bin/sudo /usr/bin/quota -vs --show-mntpoint -u $aup_username";
       $aup_quota = "";
       exec($command, $results);
       $counter = 0;
@@ -128,7 +128,7 @@
       $aup_groups = $results[0];
       unset($results);
       table_row("fa fa-users", "$l_au_groups:", "", "none", "$aup_groups");
-      $command = "/usr/bin/sudo /usr/bin/quota -vs -u $aup_username";
+      $command = "/usr/bin/sudo /usr/bin/quota -vs --show-mntpoint -u $aup_username";
       $aup_quota = "";
       exec($command, $results);
       $counter = 0;
@@ -230,7 +230,7 @@
           table_row("fa fa-user-o", "$l_au_uid:", "", "none", "$aup_uid");
           table_row("fa fa-user-circle-o", "$l_au_gid:", "", "none", "$aup_gid");
           table_row("fa fa-user", "$l_au_username:", "", "none", "$aup_username");
-          $command = "/usr/bin/sudo /usr/bin/quota -vs -u $aup_username";
+          $command = "/usr/bin/sudo /usr/bin/quota -vs --show-mntpoint -u $aup_username";
           $aup_quota = "";
           exec($command, $results);
           $counter = 0;
@@ -269,7 +269,7 @@
       table_row("fa fa-user-o", "$l_au_uid:", "", "none", "$aup_uid");
       table_row("fa fa-user-circle-o", "$l_au_gid:", "", "none", "$aup_gid");
       table_row("fa fa-user", "$l_au_username:", "", "none", "$aup_username");
-      $command = "/usr/bin/sudo /usr/bin/quota -vs -u $aup_username";
+      $command = "/usr/bin/sudo /usr/bin/quota -vs --show-mntpoint -u $aup_username";
       $aup_quota = "";
       exec($command, $results);
       $counter = 0;
@@ -899,7 +899,7 @@
     $modusergroups .= "<button type=\"submit\" class=\"btn btn-sm btn-link\"><i class=\"fa fa-pencil-square-o\"></i></button>\n";
     $modusergroups .= "</form>\n";
     table_row("fa fa-users", "$l_au_groups:", "", "none", "$modusergroups");
-    $command = "/usr/bin/sudo /usr/bin/quota -vs -u $aup_username";
+    $command = "/usr/bin/sudo /usr/bin/quota -vs --show-mntpoint -u $aup_username";
     $aup_quota = "";
     exec($command, $results);
     $counter = 0;
