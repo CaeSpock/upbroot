@@ -183,6 +183,11 @@ pre {
   padding-bottom: 70px;
 }
 
+.btn-glink {
+  color: #429244;
+  text-decoration: none;
+}
+
 .page-content.active {
   width: 100%;
 }
