@@ -1,1 +1,5 @@
+20180323: Version 1.0 Lanzada
+          Primera versión disponible para los usuarios
+          Esta es la primera versión usable, que incorpora toda la funcionalidad básica.
+          Aun la documentación será completada y se incorporarán traducciones a otros idiomas.
 20180301: Versión Inicial
