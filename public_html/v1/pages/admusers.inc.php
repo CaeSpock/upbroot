@@ -696,6 +696,7 @@
       $errortext = "";
       $errorgraph = "";
       eval_null("$in_username", "$l_au_username");
+      $in_username=strtolower($in_username);
       // Lets check if the system already has this user
       $username_exists = 0;
       $command = "/usr/bin/cat /etc/passwd";
