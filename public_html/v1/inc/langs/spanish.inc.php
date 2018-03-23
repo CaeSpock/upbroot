@@ -16,6 +16,9 @@
   $l_whatis = "&iquest;Qu&eacute; es?";
   $l_updatedata = "Actualizar mis datos";
   $l_updatepass = "Cambiar mi contrase&ntilde;a";
+  $l_server = "Servidor";
+  $l_mrtg = "MRTG";
+  $l_sysinfo = "SysInfo";
   $l_admusers = "Adm. Usuarios";
   $l_admgroups = "Adm. Grupos";
   $l_viewlogs  ="Ver Logs";
@@ -82,6 +85,9 @@
   $l_nullcity = "de la ciudad";
   $l_nulldepartment = "del departamento";
   $l_nullstatus = "del estado";
+  $l_nulllevel = "del nivel";
+  $l_nullusername = "del nombre de usuario";
+  $l_nullpassword = "de la contrase&ntilde;a";
   
   $l_unmatchedpasswords = "de las contrase&ntilde;as";
   $l_repdbmail = "del correo";
@@ -89,6 +95,8 @@
   $l_errorafter = "no puede ser nulo.";
   $l_error2before = "Los campos";
   $l_error2after = "no son iguales.";
+  $l_dbexist2before = "El campo";
+  $l_dbexist2after = "ya existe en la base de datos";
   $l_erroremailbefore = "La direcci&oacute;n";
   $l_erroremailafter = "no es un correo v&aacute;lido.";
   $l_errordatebefore = "La fecha";
@@ -118,8 +126,10 @@
   $l_up_onlychangepass = "<strong>Atenci&oacute;n:</strong> Su contrase&ntilde;a ha expirado, debe configurar una nueva contrase&ntilde;a.";
 
   // WhatIs
-  $l_wi_text  = "$surp_sitename v.$surp_sitever es la interfaz web creada para configurar las opciones disponibles en el servidor.<br />\n";
-  $l_wi_text .= "Originalmente fue escrito por $surp_autname<br />\n";
+  $l_wi_text  = "$surp_sitename v.$surp_sitever<br /><br />\n";
+  $l_wi_text .= "Es el Panel de Control creado para administrar el servidor, ofreciendo la posibilidad de configurar y monitorear el mismo, ";
+  $l_wi_text .= "sin acceder con la cuenta de s&uacute;per usuario.<br /><br />\n";
+  $l_wi_text .= "Originalmente fue escrito por $surp_autname.<br />\n";
 
   // Admin Users
   $l_au_userremoval = "Eliminaci&oacuten de usuario ...";
@@ -203,6 +213,53 @@
   $l_vl_opfrom ="Operaciones hechas por";
   $l_vl_anyop = "Cualquier Op";
 
+  // Admin Sys Users
+  $l_asu_jobexecuted = "La tarea ha sido ejecutada.";
+  $l_asu_modification = "Modificando datos de usuario ...";
+  $l_asu_id = "ID";
+  $l_asu_username = "Username";
+  $l_asu_modconfirm = "Por favor confirme la siguiente modificaci&oacute;n:";
+  $l_asu_moduser = "Modificaci&oacute;n de usuario:";
+  $l_asu_name = "Nombre";
+  $l_asu_idc = "C&eacute;dula de Identidad";
+  $l_asu_dob = "Fecha de Nacimiento";
+  $l_asu_email = "E-Mail";
+  $l_asu_phonenumber ="Tel&eacute;fono";
+  $l_asu_city = "Ciudad";
+  $l_asu_address = "Direcci&oacute;n";
+  $l_asu_department ="Departamento";
+  $l_asu_level = "Nivel";
+  $l_asu_status = "Estado";
+  $l_asu_statusby = "Estado por";
+  $l_asu_addition = "Adicionando usuario ...";
+  $l_asu_addid = "ID Creado";
+  $l_asu_addconfirm = "Por favor confirme la siguiente adici&oacute;n:";
+  $l_asu_adduser = "Adici&oacute;n de usuario:";
+  $l_asu_addloginwarn = "(Ser&aacute; forzada a min&uacute;sculas)";
+  $l_asu_password = "Contrase&ntilde;a";
+  $l_asu_passwordwarn = "(La contrase&ntilde;a ser&aacute; visible para poder d&aacute;rsela al usuario)";
+  $l_asu_userinfo = "Informaci&oacute;n de usuario:";
+  $l_asu_createdon = "Creado el";
+  $l_asu_createdby = "Creado por";
+  $l_asu_modon = "Modificado el";
+  $l_asu_modby = "Modificado por";
+  $l_asu_statuson = "Estado el";
+  $l_asu_loggedin = "En el sistema";
+  $l_asu_loggedfrom = "Logueado desde";
+  $l_asu_loggedusing = "Logueado usando";
+  $l_asu_loggedon = "Logueado el";
+  $l_asu_loginexpires = "Loguin expira";
+  $l_asu_phmodifyuser = "Presione ac&aacute; para modificar el usuario";
+  $l_asu_modifyuser = "Modificar usuario";
+  $l_asu_usersinsystem = "Usuarios actuales del sistema:";
+
+
+
+  // MRTG Page
+  $l_mrtg_text = "Please download MRTG from <a href=\"http://www.mrtg.org/\" target=\"_new\">http://www.mrtg.org/</a>.";
+
+  // SysInfo Page
+  $l_si_text = "Please download PHPSysInfo from <a href=\"http://phpsysinfo.github.io/phpsysinfo/\" target=\"_new\">http://phpsysinfo.github.io/phpsysinfo/</a>.";
 
   // Aditional stuff
   $phpFileUploadErrors = array(
