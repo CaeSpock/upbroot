@@ -271,47 +271,47 @@
   /* oplogs - Funcion de logueo de operaciones
      Parametro: El texto a loguear */
   function oplogs ($dest_username, $ot_id, $ol_flags, $ol_comment ="", $op_id=0) {
-     global $pathlogops,$surp_logops,$surp_extopslog;
-     global $action, $surv_user_id, $surv_user, $surv_user_name, $surv_level_id;
-     global $user_ip, $user_client, $surc_user, $surc_hash;
-     global $abspath;
-     if ($surp_logops == 1) {
-       $date = date("Y-m-d");
-       $time = date("H:i:s");
-       $insdb  = "insert into OPLOGS (ol_date, ol_time, ol_request_uri, ";
-       $insdb .= "ol_orig_user_id, ol_orig_user, ";
-       $insdb .= "ol_orig_user_name, ol_orig_level_id, ol_orig_ip, ol_orig_client, ";
-       $insdb .= "ol_orig_hash, ol_dest_username, ot_id, ol_flags, ";
-       $insdb .= "ol_comment, op_id, ol_action) VALUES('$date', '$time', '".$_SERVER["REQUEST_URI"]."', ";
-       $insdb .= "'$surc_user', ";
-       $insdb .= "'$surv_user', '$surv_user_name', '$surv_level_id', '$user_ip', ";
-       $insdb .= "'$user_client', '$surc_hash', '$dest_username', '$ot_id', ";
-       $insdb .= "'$ol_flags', '$ol_comment', '$op_id', '$action');";
-       $insnow = db_query($insdb);
-       $log = "|$date|$time|$surc_user|$surv_user|$surv_user_name|$surv_level_id|$user_ip|$user_client|$surc_hash|$dest_username|$ot_id|$ol_flags|$ol_comment|$op_id|$action|\n";
-       $local_logdirectory = $pathlogops."/".date("Y")."/".date("m");
-       if (!is_dir($local_logdirectory)) { mkdir($local_logdirectory,0777,TRUE); chmod($local_logdirectory,0777); }
-       $local_logfile = $local_logdirectory."/".$date.$surp_extopslog;
-       file_put_contents($local_logfile,$log,FILE_APPEND);
-     }
-     return 1;
+    global $pathlogops,$surp_logops,$surp_extopslog;
+    global $action, $surv_user_id, $surv_user, $surv_user_name, $surv_level_id;
+    global $user_ip, $user_client, $surc_user, $surc_hash;
+    global $abspath;
+    if ($surp_logops == 1) {
+      $date = date("Y-m-d");
+      $time = date("H:i:s");
+      $insdb  = "insert into OPLOGS (ol_date, ol_time, ol_request_uri, ";
+      $insdb .= "ol_orig_user_id, ol_orig_user, ";
+      $insdb .= "ol_orig_user_name, ol_orig_level_id, ol_orig_ip, ol_orig_client, ";
+      $insdb .= "ol_orig_hash, ol_dest_username, ot_id, ol_flags, ";
+      $insdb .= "ol_comment, op_id, ol_action) VALUES('$date', '$time', '".$_SERVER["REQUEST_URI"]."', ";
+      $insdb .= "'$surc_user', ";
+      $insdb .= "'$surv_user', '$surv_user_name', '$surv_level_id', '$user_ip', ";
+      $insdb .= "'$user_client', '$surc_hash', '$dest_username', '$ot_id', ";
+      $insdb .= "'$ol_flags', '$ol_comment', '$op_id', '$action');";
+      $insnow = db_query($insdb);
+      $log = "|$date|$time|$surc_user|$surv_user|$surv_user_name|$surv_level_id|$user_ip|$user_client|$surc_hash|$dest_username|$ot_id|$ol_flags|$ol_comment|$op_id|$action|\n";
+      $local_logdirectory = $pathlogops."/".date("Y")."/".date("m");
+      if (!is_dir($local_logdirectory)) { mkdir($local_logdirectory,0777,TRUE); chmod($local_logdirectory,0777); }
+      $local_logfile = $local_logdirectory."/".$date.$surp_extopslog;
+      file_put_contents($local_logfile,$log,FILE_APPEND);
+    }
+    return 1;
   }
   /* detlog - Funcion de logueo de detalle
      Parametro: El texto a loguear */
   function detlog ($texto_aloguear) {
-     global $date,$pathlogdet,$log_det,$file_detlog;
-     global $appname, $appver, $appid;
-     global $abspath;
-     $datelog = date("Y-m-d");
-     $timelog = date("H:i:s");
-     if ($log_det == 1) {
-       $log = "|$datelog|$timelog|$appname|$appver|$appid|$texto_aloguear|\n";
-       $local_logdirectory = $pathlogdet."/".date("Y")."/".date("m");
-       if (!is_dir($local_logdirectory)) { mkdir($local_logdirectory,0777,TRUE); chmod($local_logdirectory,0777); }
-       $local_logfile = $local_logdirectory."/".$date.$file_detlog;
-       file_put_contents($local_logfile,$log,FILE_APPEND);
-     }
-     return 1;
+    global $date,$pathlogdet,$log_det,$file_detlog;
+    global $appname, $appver, $appid;
+    global $abspath;
+    $datelog = date("Y-m-d");
+    $timelog = date("H:i:s");
+    if ($log_det == 1) {
+      $log = "|$datelog|$timelog|$appname|$appver|$appid|$texto_aloguear|\n";
+      $local_logdirectory = $pathlogdet."/".date("Y")."/".date("m");
+      if (!is_dir($local_logdirectory)) { mkdir($local_logdirectory,0777,TRUE); chmod($local_logdirectory,0777); }
+      $local_logfile = $local_logdirectory."/".$date.$file_detlog;
+      file_put_contents($local_logfile,$log,FILE_APPEND);
+    }
+    return 1;
   }
 
   //

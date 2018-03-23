@@ -8,11 +8,15 @@
     if ($action == "whatis") { include_once("$pathsys/whatis.inc.php"); }
     if ($action == "updatedata") { include_once("$pathsys/updatedata.inc.php"); }
     if ($action == "updatepass") { include_once("$pathsys/updatepass.inc.php"); }
-    if ($action == "admusers") { include_once("$pathsys/admusers.inc.php"); }
-    if ($action == "admgroups") { include_once("$pathsys/admgroups.inc.php"); }
-    if ($surv_level_id > 75) {
-      if ($action == "viewlogs") { include_once("$pathsys/viewlogs.inc.php"); }
-      if ($action == "admsysusers") { include_once("$pathsys/admsysusers.inc.php"); }
+    if ($surv_level_id > 60) {
+      if ($action == "sysinfo") { include_once("$pathsys/sysinfo.inc.php"); }
+      if ($action == "mrtg") { include_once("$pathsys/mrtg.inc.php"); }
+      if ($action == "admusers") { include_once("$pathsys/admusers.inc.php"); }
+      if ($action == "admgroups") { include_once("$pathsys/admgroups.inc.php"); }
+      if ($surv_level_id > 75) {
+        if ($action == "viewlogs") { include_once("$pathsys/viewlogs.inc.php"); }
+        if ($action == "admsysusers") { include_once("$pathsys/admsysusers.inc.php"); }
+      }
     }
   }
 

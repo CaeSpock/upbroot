@@ -3,12 +3,16 @@
   $activepagemenu = "class=\"active\"";
   $activeexpanded = "false";
   $activecollapse = "collapse";
+  $serverexpanded = "false";
+  $servercollapse = "collapse";
 
   // Defaults
   $dashboard_active = "";
   $whatis_active = "";
   $updatedata_active = "";
   $updatepass_active = "";
+  $mrtg_active = "";
+  $sysinfo_active = "";
   $admusers_active = "";
   $admgroups_active = "";
   $viewlogs_active = "";
@@ -21,6 +25,8 @@
   if ($action == "whatis") { $whatis_active = $activepagemenu; $activeexpanded = "true"; $activecollapse = ""; }
   if ($action == "updatedata") { $updatedata_active = $activepagemenu; $activeexpanded = "true"; $activecollapse = ""; }
   if ($action == "updatepass") { $updatepass_active = $activepagemenu; $activeexpanded = "true"; $activecollapse = ""; }
+  if ($action == "mrtg") { $mrtg_active = $activepagemenu; $serverexpanded = "true"; $servercollapse = ""; }
+  if ($action == "sysinfo") { $sysinfo_active = $activepagemenu; $serverexpanded = "true"; $servercollapse = ""; }
   if ($action == "admusers") { $admusers_active = $activepagemenu; }
   if ($action == "admgroups") { $admgroups_active = $activepagemenu; }
   if ($action == "viewlogs") { $viewlogs_active = $activepagemenu; }
@@ -43,43 +49,20 @@
     echo "                    <li $updatepass_active><a href=\"$PHPSELF?action=updatepass\">$l_updatepass</a></li>\n";
     echo "                  </ul>\n";
     echo "                </li>\n";
-    echo "                <li $admusers_active><a href=\"$PHPSELF?action=admusers\"> <i class=\"fa fa-user-o fa-fw\"></i> $l_admusers </a></li>\n";
-    echo "                <li $admgroups_active><a href=\"$PHPSELF?action=admgroups\"> <i class=\"fa fa-users fa-fw\"></i> $l_admgroups </a></li>\n";
-    if ($surv_level_id > 75) {
-      echo "                <li $viewlogs_active><a href=\"$PHPSELF?action=viewlogs\"> <i class=\"fa fa-file-text-o fa-fw\"></i> $l_viewlogs </a></li>\n";
-      echo "                <li $admsysusers_active><a href=\"$PHPSELF?action=admsysusers\"> <i class=\"fa fa-user-secret fa-fw\"></i> $l_admsysusers </a></li>\n";
+    if ($surv_level_id > 60) {
+      echo "                <li><a href=\"#ServerDropDown\" aria-expanded=\"$serverexpanded\" data-toggle=\"collapse\"> <i class=\"fa fa-server fa-fw\"></i> $l_server </a>\n";
+      echo "                  <ul id=\"ServerDropDown\" class=\"$servercollapse list-unstyled \">\n";
+      echo "                    <li $sysinfo_active><a href=\"$PHPSELF?action=sysinfo\">$l_sysinfo</a></li>\n";
+      echo "                    <li $mrtg_active><a href=\"$PHPSELF?action=mrtg\">$l_mrtg</a></li>\n";
+      echo "                  </ul>\n";
+      echo "                </li>\n";
+      echo "                <li $admusers_active><a href=\"$PHPSELF?action=admusers\"> <i class=\"fa fa-user-o fa-fw\"></i> $l_admusers </a></li>\n";
+      echo "                <li $admgroups_active><a href=\"$PHPSELF?action=admgroups\"> <i class=\"fa fa-users fa-fw\"></i> $l_admgroups </a></li>\n";
+      if ($surv_level_id > 75) {
+        echo "                <li $viewlogs_active><a href=\"$PHPSELF?action=viewlogs\"> <i class=\"fa fa-file-text-o fa-fw\"></i> $l_viewlogs </a></li>\n";
+        echo "                <li $admsysusers_active><a href=\"$PHPSELF?action=admsysusers\"> <i class=\"fa fa-user-secret fa-fw\"></i> $l_admsysusers </a></li>\n";
+      }
     }
-    /*
-    echo "                <li><a href=\"tables.html\"> <i class=\"icon-grid\"></i>Tablas </a></li>\n";
-    echo "                <li><a href=\"charts.html\"> <i class=\"fa fa-bar-chart\"></i>Gráficos </a></li>\n";
-    echo "                <li><a href=\"forms.html\"> <i class=\"icon-padnote\"></i>Forms </a></li>\n";
-    echo "                <li><a href=\"#exampledropdownDropdown\" aria-expanded=\"false\" data-toggle=\"collapse\"> <i class=\"icon-windows\"></i>Example dropdown </a>\n";
-    echo "                  <ul id=\"exampledropdownDropdown\" class=\"collapse list-unstyled \">\n";
-    echo "                    <li><a href=\"#\">Page</a></li>\n"
-    echo "                    <li><a href=\"#\">Page</a></li>\n";
-    echo "                    <li><a href=\"#\">Page</a></li>\n";
-    echo "                  </ul>\n";
-    echo "                </li>\n";
-    echo "                <li><a href=\"$PHPSELF?action=logout\"> <i class=\"icon-logout\ fa-fw"></i>$l_logout</a></li>\n";
-    echo "        </ul><span class=\"heading\">Extras</span>\n";
-    echo "        <ul class=\"list-unstyled\">\n";
-    echo "          <li> <a href=\"#\"> <i class=\"icon-settings\"></i>Demo </a></li>\n";
-    echo "          <li> <a href=\"#\"> <i class=\"icon-writing-whiteboard\"></i>Demo </a></li>\n";
-    echo "          <li> <a href=\"#\"> <i class=\"icon-chart\"></i>Demo </a></li>\n";
-    echo "        </ul>\n";
-    echo "        <ul class=\"list-unstyled\">\n";
-    echo "                <li><a href=\"tables.html\"> <i class=\"icon-grid\"></i>Tablas </a></li>\n";
-    echo "                <li><a href=\"charts.html\"> <i class=\"fa fa-bar-chart\"></i>Gráficos </a></li>\n";
-    echo "                <li><a href=\"forms.html\"> <i class=\"icon-padnote\"></i>Forms </a></li>\n";
-    echo "                <li><a href=\"#exampledropdownDropdown\" aria-expanded=\"false\" data-toggle=\"collapse\"> <i class=\"icon-windows\"></i>Example dropdown </a>\n";
-    echo "                  <ul id=\"exampledropdownDropdown\" class=\"collapse list-unstyled \">\n";
-    echo "                    <li><a href=\"#\">Page</a></li>\n";
-    echo "                    <li><a href=\"#\">Page</a></li>\n";
-    echo "                    <li><a href=\"#\">Page</a></li>\n";
-    echo "                  </ul>\n";
-    echo "                </li>\n";
-    echo "        </ul>\n";
-    */
   }
   echo "                <li><a href=\"$PHPSELF?action=logout\"> <i class=\"icon-logout fa-fw\"></i> $l_logout</a></li>\n";
   echo "        </ul>\n";
