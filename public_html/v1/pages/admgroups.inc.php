@@ -218,14 +218,14 @@
     $groupremoval  = "<form method=\"post\" action=\"".$_SERVER['PHP_SELF']."?action=admgroups\">\n";
     $groupremoval .= "<input name=\"in_group\" value=\"$in_group\" type=\"hidden\">\n";
     $groupremoval .= "<input name=\"in_delgroup\" value=\"1\" type=\"hidden\">\n";
-    $groupremoval .= "<button type=\"submit\" class=\"btn btn-sm btn-link\"><i class=\"fa fa-times\"></i> $l_ag_removegroup</button>\n";
+    $groupremoval .= "<button type=\"submit\" class=\"btn btn-sm btn-link btn-glink\"><i class=\"fa fa-times\"></i> $l_ag_removegroup</button>\n";
     $groupremoval .= "</form>\n";
     table_row("fa fa-times-circle-o", "$l_remove:", "", "none", "$groupremoval");
     echo "  </table>\n";
     echo "</div>\n";
   } else {
     oplogs("", "16", "", "");
-    echo "<div class=\"title\"><strong>Lista de grupos actuales:</strong></div>\n";
+    echo "<div class=\"title\"><strong>$l_ag_currentgroups</strong></div>\n";
     echo "<div class=\"table-responsive-sm\">\n";
     echo "  <table class=\"table table-sm table-hover\">\n";
     echo "  <theader>\n";
@@ -250,7 +250,7 @@
         echo "<form method=\"post\" action=\"".$_SERVER['PHP_SELF']."?action=admgroups\">\n";
         echo "<input name=\"in_group\" value=\"$ag_gid\" type=\"hidden\">\n";
         echo "<input name=\"in_view\" value=\"1\" type=\"hidden\">\n";
-        echo "<button type=\"submit\" class=\"btn btn-sm btn-link\"><i class=\"fa fa-eye\"></i></button>\n";
+        echo "<button type=\"submit\" class=\"btn btn-sm btn-link btn-glink\"><i class=\"fa fa-eye\"></i></button>\n";
         echo "</form>\n";
         echo "    </td>\n";
         echo "  </tr>\n";
@@ -262,11 +262,10 @@
     echo "  </table>\n";
     echo "  <form method=\"post\" action=\"".$_SERVER['PHP_SELF']."?action=admgroups\">\n";
     echo "  <input name=\"in_new\" value=\"1\" type=\"hidden\">\n";
-    echo "  <button type=\"submit\" class=\"btn btn-sm btn-link\"><i class=\"fa fa-user-plus\"></i></button>\n";
+    echo "  <button type=\"submit\" class=\"btn btn-sm btn-link btn-glink\"><i class=\"fa fa-user-plus\"></i></button>\n";
     echo "  </form>\n";
     echo "  <br /><br />\n";
     echo "</div>\n";
-
   }
   container_close();
 

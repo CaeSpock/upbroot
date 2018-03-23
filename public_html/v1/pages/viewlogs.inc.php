@@ -67,7 +67,7 @@
         $vl_viewoplogdetail .= "<input name=\"in_opinfo\" value=\"1\" type=\"hidden\">\n";
         $vl_viewoplogdetail .= "<input name=\"in_opdetail\" value=\"1\" type=\"hidden\">\n";
         $vl_viewoplogdetail .= "<input name=\"in_view\" value=\"1\" type=\"hidden\">\n";
-        $vl_viewoplogdetail .= "<button type=\"submit\" class=\"btn btn-sm btn-link\">$l_vl_viewdetail</button>\n";
+        $vl_viewoplogdetail .= "<button type=\"submit\" class=\"btn btn-sm btn-link btn-glink\">$l_vl_viewdetail</button>\n";
         $vl_viewoplogdetail .= "</form>";
         table_row("fa fa-info", "", "", "none" , "$vl_viewoplogdetail");
         echo "  </table>";
@@ -145,7 +145,7 @@
           echo "<input name=\"in_opover\" value=\"$in_opover\" type=\"hidden\">\n";
           echo "<input name=\"in_optype\" value=\"$in_optype\" type=\"hidden\">\n";
           echo "<input name=\"in_view\" value=\"1\" type=\"hidden\">\n";
-          echo "<button type=\"submit\" class=\"btn btn-sm btn-link\">$y-$num</button>\n";
+          echo "<button type=\"submit\" class=\"btn btn-sm btn-link btn-glink\">$y-$num</button>\n";
           echo "</form>";
           echo "</td>";
         }
@@ -189,7 +189,7 @@
           echo "<input name=\"in_view\" value=\"1\" type=\"hidden\">\n";
           echo "<input name=\"in_opinfo\" value=\"1\" type=\"hidden\">\n";
           echo "<input name=\"in_opover\" value=\"$vl_op_id\" type=\"hidden\">\n";
-          echo "<button type=\"submit\" class=\"btn btn-sm btn-link\">$vl_op_id</button>\n";
+          echo "<button type=\"submit\" class=\"btn btn-sm btn-link btn-glink\">$vl_op_id</button>\n";
           echo "</form>";
           echo "</td>\n";
         }

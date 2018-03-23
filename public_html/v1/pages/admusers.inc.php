@@ -876,7 +876,7 @@
     $moduserinfo  = "<form method=\"post\" action=\"".$_SERVER['PHP_SELF']."?action=admusers\">\n";
     $moduserinfo .= "<input name=\"in_user\" value=\"$in_user\" type=\"hidden\">\n";
     $moduserinfo .= "<input name=\"in_modinfo\" value=\"1\" type=\"hidden\">\n";
-    $moduserinfo .= "$aup_info <button type=\"submit\" class=\"btn btn-sm btn-link\"><i class=\"fa fa-pencil-square-o\"></i></button>\n";
+    $moduserinfo .= "$aup_info <button type=\"submit\" class=\"btn btn-sm btn-link btn-glink\"><i class=\"fa fa-pencil-square-o\"></i></button>\n";
     $moduserinfo .= "</form>";
     table_row("fa fa-info-circle", "$l_au_info:", "", "none", "$moduserinfo");
     table_row("fa fa-home", "$l_au_home:", "", "none", "$aup_home");
@@ -884,7 +884,7 @@
     $modusershell .= "<input name=\"in_user\" value=\"$in_user\" type=\"hidden\">\n";
     $modusershell .= "<input name=\"in_modshell\" value=\"1\" type=\"hidden\">\n";
     $modusershell .= "$aup_shell ";
-    $modusershell .= "<button type=\"submit\" class=\"btn btn-sm btn-link\"><i class=\"fa fa-pencil-square-o\"></i></button>\n";
+    $modusershell .= "<button type=\"submit\" class=\"btn btn-sm btn-link btn-glink\"><i class=\"fa fa-pencil-square-o\"></i></button>\n";
     $modusershell .= "</form>\n";
     table_row("fa fa-terminal", "$l_au_shell:", "", "none", "$modusershell");
     $command = "/usr/bin/id -Gn $aup_username";
@@ -896,7 +896,7 @@
     $modusergroups .= "<input name=\"in_user\" value=\"$in_user\" type=\"hidden\">\n";
     $modusergroups .= "<input name=\"in_modgroups\" value=\"1\" type=\"hidden\">\n";
     $modusergroups .= "$aup_groups ";
-    $modusergroups .= "<button type=\"submit\" class=\"btn btn-sm btn-link\"><i class=\"fa fa-pencil-square-o\"></i></button>\n";
+    $modusergroups .= "<button type=\"submit\" class=\"btn btn-sm btn-link btn-glink\"><i class=\"fa fa-pencil-square-o\"></i></button>\n";
     $modusergroups .= "</form>\n";
     table_row("fa fa-users", "$l_au_groups:", "", "none", "$modusergroups");
     $command = "/usr/bin/sudo /usr/bin/quota -vs --show-mntpoint -u $aup_username";
@@ -913,13 +913,13 @@
     $moduserquota  = "<form method=\"post\" action=\"".$_SERVER['PHP_SELF']."?action=admusers\">\n";
     $moduserquota .= "<input name=\"in_user\" value=\"$in_user\" type=\"hidden\">\n";
     $moduserquota .= "<input name=\"in_modquota\" value=\"1\" type=\"hidden\">\n";
-    $moduserquota .= "<button type=\"submit\" class=\"btn btn-sm btn-link\"><i class=\"fa fa-pencil-square-o\"></i></button>\n";
+    $moduserquota .= "<button type=\"submit\" class=\"btn btn-sm btn-link btn-glink\"><i class=\"fa fa-pencil-square-o\"></i></button>\n";
     $moduserquota .= "</form>\n";
     table_row("fa fa-hdd-o", "$l_au_quota:", "", "none", "<pre>$aup_quota</pre>$moduserquota");
     $userremoval  = "<form method=\"post\" action=\"".$_SERVER['PHP_SELF']."?action=admusers\">\n";
     $userremoval .= "<input name=\"in_user\" value=\"$in_user\" type=\"hidden\">\n";
     $userremoval .= "<input name=\"in_deluser\" value=\"1\" type=\"hidden\">\n";
-    $userremoval .= "<button type=\"submit\" class=\"btn btn-sm btn-link\"><i class=\"fa fa-times\"></i> $l_au_removeuser</button>\n";
+    $userremoval .= "<button type=\"submit\" class=\"btn btn-sm btn-link btn-glink\"><i class=\"fa fa-times\"></i> $l_au_removeuser</button>\n";
     $userremoval .= "</form>\n";
     table_row("fa fa-user-times", "$l_remove:", "", "none", "$userremoval");
     echo "  </table>\n";
@@ -953,7 +953,7 @@
         echo "<form method=\"post\" action=\"".$_SERVER['PHP_SELF']."?action=admusers\">\n";
         echo "<input name=\"in_user\" value=\"$au_uid\" type=\"hidden\">\n";
         echo "<input name=\"in_view\" value=\"1\" type=\"hidden\">\n";
-        echo "<button type=\"submit\" class=\"btn btn-sm btn-link\"><i class=\"fa fa-eye\"></i></button>\n";
+        echo "<button type=\"submit\" class=\"btn btn-sm btn-link btn-glink\"><i class=\"fa fa-eye\"></i></button>\n";
         echo "</form>\n";
         echo "    </td>\n";
         echo "  </tr>\n";
@@ -965,7 +965,7 @@
     echo "  </table>\n";
     echo "  <form method=\"post\" action=\"".$_SERVER['PHP_SELF']."?action=admusers\">\n";
     echo "  <input name=\"in_new\" value=\"1\" type=\"hidden\">\n";
-    echo "  <button type=\"submit\" class=\"btn btn-sm btn-link\"><i class=\"fa fa-user-plus\"></i></button>\n";
+    echo "  <button type=\"submit\" class=\"btn btn-sm btn-link btn-glink\"><i class=\"fa fa-user-plus\"></i></button>\n";
     echo "  </form>\n";
     echo "  <br /><br />\n";
     echo "</div>\n";
