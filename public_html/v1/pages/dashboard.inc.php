@@ -67,6 +67,12 @@
     $loggedin = $results[0];
     unset($results);
   }
+  if ($loggedin == "days,") {
+    $command = "/usr/bin/uptime | /usr/bin/awk {'print $3'}";
+    exec($command, $results);
+    $loggedin = $results[0];
+    unset($results);
+  }
   echo "                    <div class=\"number dashtext-3\">$loggedin</div>\n";
   echo "                  </div>\n";
   echo "                  <div class=\"progress progress-template\">\n";
