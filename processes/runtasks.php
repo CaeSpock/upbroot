@@ -126,6 +126,73 @@
         $s_log .= "'$fecha', '$hora', '$po->op_id', '$command', ";
         $s_log .= "'$outputstring', '$return_var');";
         $w_log = db_query($s_log);
+        // Ahora creamos public_html dentro del home del usuario
+        // Antes verificamos si esta el $rt_home
+        if ($rt_home == "") { $rt_home = "/home/$rt_login"; }
+        $command = "/usr/bin/mkdir $rt_home/public_html";
+        unset($output);
+        unset($return_var);
+        exec($command, $output, $return_var);
+        $counter = 0;
+        $outputstring = "";
+        while ($counter < count($output)) {
+          $outputstring .= $output[$counter];
+          $counter++;
+        }
+        $return_vars .= $return_var;
+        $s_log  = "insert into TRANSACTIONLOG (tl_date, tl_time, op_id, ";
+        $s_log .= "tl_command, tl_output, tl_returnvar) values(";
+        $s_log .= "'$fecha', '$hora', '$po->op_id', '$command', ";
+        $s_log .= "'$outputstring', '$return_var');";
+        $w_log = db_query($s_log);
+        $command = "/usr/bin/chown $rt_login:$rt_login $rt_home/public_html";
+        unset($output);
+        unset($return_var);
+        exec($command, $output, $return_var);
+        $counter = 0;
+        $outputstring = "";
+        while ($counter < count($output)) {
+          $outputstring .= $output[$counter];
+          $counter++;
+        }
+        $return_vars .= $return_var;
+        $s_log  = "insert into TRANSACTIONLOG (tl_date, tl_time, op_id, ";
+        $s_log .= "tl_command, tl_output, tl_returnvar) values(";
+        $s_log .= "'$fecha', '$hora', '$po->op_id', '$command', ";
+        $s_log .= "'$outputstring', '$return_var');";
+        $w_log = db_query($s_log);
+        $command = "/usr/bin/setfacl -m u:apache:rx $rt_home";
+        unset($output);
+        unset($return_var);
+        exec($command, $output, $return_var);
+        $counter = 0;
+        $outputstring = "";
+        while ($counter < count($output)) {
+          $outputstring .= $output[$counter];
+          $counter++;
+        }
+        $return_vars .= $return_var;
+        $s_log  = "insert into TRANSACTIONLOG (tl_date, tl_time, op_id, ";
+        $s_log .= "tl_command, tl_output, tl_returnvar) values(";
+        $s_log .= "'$fecha', '$hora', '$po->op_id', '$command', ";
+        $s_log .= "'$outputstring', '$return_var');";
+        $w_log = db_query($s_log);
+        $command = "/usr/bin/setfacl -m u:apache:rx $rt_home/public_html";
+        unset($output);
+        unset($return_var);
+        exec($command, $output, $return_var);
+        $counter = 0;
+        $outputstring = "";
+        while ($counter < count($output)) {
+          $outputstring .= $output[$counter];
+          $counter++;
+        }
+        $return_vars .= $return_var;
+        $s_log  = "insert into TRANSACTIONLOG (tl_date, tl_time, op_id, ";
+        $s_log .= "tl_command, tl_output, tl_returnvar) values(";
+        $s_log .= "'$fecha', '$hora', '$po->op_id', '$command', ";
+        $s_log .= "'$outputstring', '$return_var');";
+        $w_log = db_query($s_log);
       }
       unset($output);
       $return_var = $return_vars;
