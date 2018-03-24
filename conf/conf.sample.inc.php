@@ -32,6 +32,11 @@
   // Language
   $surp_lang = "spanish";
 
+  // Default password for new user accounts
+  $surp_defpass = "";
+  // Do you want to allow home specification in the user addition? [0,1]
+  $surp_allowenterhome = 0;
+
   // Constants
   // How many lines to display on big items
   $surp_perPage = 50;
