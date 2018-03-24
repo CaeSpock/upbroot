@@ -11,6 +11,7 @@
     if ($surv_level_id > 60) {
       if ($action == "sysinfo") { include_once("$pathsys/sysinfo.inc.php"); }
       if ($action == "mrtg") { include_once("$pathsys/mrtg.inc.php"); }
+      if ($action == "phpinfo") { include_once("$pathsys/phpinfo.inc.php"); }
       if ($action == "admusers") { include_once("$pathsys/admusers.inc.php"); }
       if ($action == "admgroups") { include_once("$pathsys/admgroups.inc.php"); }
       if ($surv_level_id > 75) {

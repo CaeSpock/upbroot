@@ -5,14 +5,17 @@
   $activecollapse = "collapse";
   $serverexpanded = "false";
   $servercollapse = "collapse";
+  $adminexpanded  = "false";
+  $admincollapse  = "collapse";
 
   // Defaults
   $dashboard_active = "";
   $whatis_active = "";
   $updatedata_active = "";
   $updatepass_active = "";
-  $mrtg_active = "";
   $sysinfo_active = "";
+  $mrtg_active = "";
+  $phpinfo_active = "";
   $admusers_active = "";
   $admgroups_active = "";
   $viewlogs_active = "";
@@ -25,10 +28,11 @@
   if ($action == "whatis") { $whatis_active = $activepagemenu; $activeexpanded = "true"; $activecollapse = ""; }
   if ($action == "updatedata") { $updatedata_active = $activepagemenu; $activeexpanded = "true"; $activecollapse = ""; }
   if ($action == "updatepass") { $updatepass_active = $activepagemenu; $activeexpanded = "true"; $activecollapse = ""; }
-  if ($action == "mrtg") { $mrtg_active = $activepagemenu; $serverexpanded = "true"; $servercollapse = ""; }
   if ($action == "sysinfo") { $sysinfo_active = $activepagemenu; $serverexpanded = "true"; $servercollapse = ""; }
-  if ($action == "admusers") { $admusers_active = $activepagemenu; }
-  if ($action == "admgroups") { $admgroups_active = $activepagemenu; }
+  if ($action == "mrtg") { $mrtg_active = $activepagemenu; $serverexpanded = "true"; $servercollapse = ""; }
+  if ($action == "phpinfo") { $phpinfo_active = $activepagemenu; $serverexpanded = "true"; $servercollapse = ""; }
+  if ($action == "admusers") { $admusers_active = $activepagemenu; $adminexpanded = "true"; $admincollapse = ""; }
+  if ($action == "admgroups") { $admgroups_active = $activepagemenu; $adminexpanded = "true"; $admincollapse = ""; }
   if ($action == "viewlogs") { $viewlogs_active = $activepagemenu; }
   if ($action == "admsysusers") { $admsysusers_active = $activepagemenu; }
 
@@ -54,10 +58,15 @@
       echo "                  <ul id=\"ServerDropDown\" class=\"$servercollapse list-unstyled \">\n";
       echo "                    <li $sysinfo_active><a href=\"$PHPSELF?action=sysinfo\">$l_sysinfo</a></li>\n";
       echo "                    <li $mrtg_active><a href=\"$PHPSELF?action=mrtg\">$l_mrtg</a></li>\n";
+      echo "                    <li $phpinfo_active><a href=\"$PHPSELF?action=phpinfo\">$l_phpinfo</a></li>\n";
       echo "                  </ul>\n";
       echo "                </li>\n";
-      echo "                <li $admusers_active><a href=\"$PHPSELF?action=admusers\"> <i class=\"fa fa-user-o fa-fw\"></i> $l_admusers </a></li>\n";
-      echo "                <li $admgroups_active><a href=\"$PHPSELF?action=admgroups\"> <i class=\"fa fa-users fa-fw\"></i> $l_admgroups </a></li>\n";
+      echo "                <li><a href=\"#AdminDropDown\" aria-expanded=\"$adminexpanded\" data-toggle=\"collapse\"> <i class=\"fa fa-server fa-fw\"></i> $l_administration </a>\n";
+      echo "                  <ul id=\"AdminDropDown\" class=\"$admincollapse list-unstyled \">\n";
+      echo "                    <li $admusers_active><a href=\"$PHPSELF?action=admusers\"> <i class=\"fa fa-user-o fa-fw\"></i> $l_admusers </a></li>\n";
+      echo "                    <li $admgroups_active><a href=\"$PHPSELF?action=admgroups\"> <i class=\"fa fa-users fa-fw\"></i> $l_admgroups </a></li>\n";
+      echo "                  </ul>\n";
+      echo "                </li>\n";
       if ($surv_level_id > 75) {
         echo "                <li $viewlogs_active><a href=\"$PHPSELF?action=viewlogs\"> <i class=\"fa fa-file-text-o fa-fw\"></i> $l_viewlogs </a></li>\n";
         echo "                <li $admsysusers_active><a href=\"$PHPSELF?action=admsysusers\"> <i class=\"fa fa-user-secret fa-fw\"></i> $l_admsysusers </a></li>\n";
