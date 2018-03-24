@@ -17,8 +17,10 @@
   $l_updatedata = "Actualizar mis datos";
   $l_updatepass = "Cambiar mi contrase&ntilde;a";
   $l_server = "Servidor";
-  $l_mrtg = "MRTG";
   $l_sysinfo = "SysInfo";
+  $l_mrtg = "MRTG";
+  $l_phpinfo = "PHP Info";
+  $l_administration = "Administraci&oacute;n";
   $l_admusers = "Adm. Usuarios";
   $l_admgroups = "Adm. Grupos";
   $l_viewlogs  ="Ver Logs";
@@ -55,7 +57,8 @@
   $l_yesconfirm = "Si, confirmo!";
   $l_no = "No";
   $l_yes = "Si";
-  $l_remove = "Remove";
+  $l_remove = "Remover";
+  $l_block = "Bloquear";
   $l_add = "Adicionar";
   $l_today = "Hoy";
   $l_search = "Buscar";
@@ -126,10 +129,11 @@
   $l_up_onlychangepass = "<strong>Atenci&oacute;n:</strong> Su contrase&ntilde;a ha expirado, debe configurar una nueva contrase&ntilde;a.";
 
   // WhatIs
-  $l_wi_text  = "$surp_sitename v.$surp_sitever<br /><br />\n";
+  $l_wi_text  = "<strong>$surp_sitename v.$surp_sitever</strong><br /><br />\n";
   $l_wi_text .= "Es el Panel de Control creado para administrar el servidor, ofreciendo la posibilidad de configurar y monitorear el mismo, ";
   $l_wi_text .= "sin acceder con la cuenta de s&uacute;per usuario.<br /><br />\n";
-  $l_wi_text .= "Originalmente fue escrito por $surp_autname.<br />\n";
+  $l_wi_text .= "El dise&ntilde;o utiliza una plantilla hecha por <a href=\"https://bootstrapious.com\" target=\"_new\">Bootstrapious</a>.<br /><br />";
+  $l_wi_text .= "El sistema est&aacute; en constante desarrollo. Es escrito por $surp_autname.<br />\n";
 
   // Admin Users
   $l_au_userremoval = "Eliminaci&oacuten de usuario ...";
@@ -171,6 +175,14 @@
   $l_au_name = "Nombre";
   $l_au_operations = "Operaciones";
   $l_au_removeuser = "Presione ac&aacute; para eliminar el usuario";
+  $l_au_homewarn = "(Si deja en blanco se configurar&aacute; en /home/USUARIO)";
+  $l_au_homewarn2 = "(Se autoconfigurar&aacute; para apuntar a /home/USUARIO)";
+  $l_au_blockuser = "Bloquear al usuario";
+  $l_au_unblockuser = "Desbloquear al usuario";
+  $l_au_blockuserconf = "Por favor confirme que desea bloquear el siguiente usuario:";
+  $l_au_blockuserop = "Bloqueo de usuario ...";
+  $l_au_unblockuserconf = "Por favor confirme que desea desbloquear el siguiente usuario:";
+  $l_au_unblockuserop = "Desbloqueo de usuario ...";
 
   // Admin Groups
   $l_ag_groupname = "Nombre del Grupo";
