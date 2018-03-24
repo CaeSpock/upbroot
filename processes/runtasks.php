@@ -353,6 +353,36 @@
       $s_log .= "'$fecha', '$hora', '$po->op_id', '$command', ";
       $s_log .= "'$outputstring', '$return_var');";
       $w_log = db_query($s_log);
+    } elseif ($po->ot_id==25) {
+      // This is a user block
+      $command = "/usr/sbin/usermod -L $po->ot_d_username";
+      exec($command, $output, $return_var);
+      $counter = 0;
+      $outputstring = "";
+      while ($counter < count($output)) {
+        $outputstring .= $output[$counter];
+        $counter++;
+      }
+      $s_log  = "insert into TRANSACTIONLOG (tl_date, tl_time, op_id, ";
+      $s_log .= "tl_command, tl_output, tl_returnvar) values(";
+      $s_log .= "'$fecha', '$hora', '$po->op_id', '$command', ";
+      $s_log .= "'$outputstring', '$return_var');";
+      $w_log = db_query($s_log);
+    } elseif ($po->ot_id==26) {
+      // This is a user unblock
+      $command = "/usr/sbin/usermod -U $po->ot_d_username";
+      exec($command, $output, $return_var);
+      $counter = 0;
+      $outputstring = "";
+      while ($counter < count($output)) {
+        $outputstring .= $output[$counter];
+        $counter++;
+      }
+      $s_log  = "insert into TRANSACTIONLOG (tl_date, tl_time, op_id, ";
+      $s_log .= "tl_command, tl_output, tl_returnvar) values(";
+      $s_log .= "'$fecha', '$hora', '$po->op_id', '$command', ";
+      $s_log .= "'$outputstring', '$return_var');";
+      $w_log = db_query($s_log);
     }
     echo "[".date("Y-m-i H:i:s")."]   Marking operation as finished\n";
     $return_var = str_replace("\n", "", $return_var);
