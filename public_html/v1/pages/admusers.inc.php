@@ -7,10 +7,12 @@
   $in_view      = receive_variable("POST", "in_view", "INT", 1);
   $in_deluser   = receive_variable("POST", "in_deluser", "INT", 1);
   $in_user      = receive_variable("POST", "in_user", "INT", 5);
-  $in_modinfo   = receive_variable("POST", "in_modinfo", "INT", 5);
-  $in_modshell  = receive_variable("POST", "in_modshell", "INT", 5);
-  $in_modgroups = receive_variable("POST", "in_modgroups", "INT", 5);
-  $in_modquota  = receive_variable("POST", "in_modquota", "INT", 5);
+  $in_modinfo   = receive_variable("POST", "in_modinfo", "INT", 1);
+  $in_modshell  = receive_variable("POST", "in_modshell", "INT", 1);
+  $in_modgroups = receive_variable("POST", "in_modgroups", "INT", 1);
+  $in_modquota  = receive_variable("POST", "in_modquota", "INT", 1);
+  $in_block     = receive_variable("POST", "in_block", "INT", 1);
+  $in_unblock   = receive_variable("POST", "in_unblock", "INT", 1);
   $in_doit      = receive_variable("POST", "in_doit", "INT", 1);
   $in_confirm   = receive_variable("POST", "in_confirm", "INT", 1);
   $in_username  = receive_variable("POST", "in_username", "STRING", 250);
@@ -25,7 +27,257 @@
   $in_quotahi   = receive_variable("POST", "in_quotahi", "INT", 15);
   $in_groups    = receive_variable("POST", "in_groups", "STRING", 250);
 
-  if ($in_deluser == 1) {
+  if ($in_unblock == 1) {
+    if ($in_confirm == 1) {
+      echo "<div class=\"title\"><strong>$l_au_unblockuserop</strong></div>\n";
+      echo "<div class=\"table-responsive-sm\">\n";
+      // Lets find the user
+      $command = "/usr/bin/cat /etc/passwd";
+      $counter = 0;
+      exec($command, $results);
+      while ($counter < count($results)) {
+        $line = $results[$counter];
+        list($au_username,$au_x,$au_uid,$au_gid,$au_info, $au_home, $au_shell)=explode(":",$line);
+        if ($au_uid>=$surp_ugmin and $au_uid<$surp_ugmax) {
+          if ($au_uid == $in_user) {
+            $aup_username = $au_username;
+            $aup_uid = $au_uid;
+            $aup_gid = $au_gid;
+            $aup_info = $au_info;
+            $aup_home = $au_home;
+            $aup_shell = $au_shell;
+          }
+        }
+        $counter++;
+      }
+      unset($results);
+      echo "  <table class=\"table table-sm table-hover\">\n"; 
+      table_row("fa fa-user-o", "$l_au_uid:", "", "none", "$aup_uid");
+      table_row("fa fa-user-circle-o", "$l_au_gid:", "", "none", "$aup_gid");
+      table_row("fa fa-user", "$l_au_username:", "", "none", "$aup_username");
+      table_row("fa fa-info-circle", "$l_au_info:", "", "none", "$aup_info");
+      table_row("fa fa-home", "$l_au_home:", "", "none", "$aup_home");
+      table_row("fa fa-terminal", "$l_au_shell:", "", "none", "$aup_shell");
+      $command = "/usr/bin/id -Gn $aup_username";
+      $aup_groups = "";
+      exec($command, $results);
+      $aup_groups = $results[0];
+      unset($results);
+      table_row("fa fa-users", "$l_au_groups:", "", "none", "$aup_groups");
+      $command = "/usr/bin/sudo /usr/bin/quota -vs --show-mntpoint -u $aup_username";
+      $aup_quota = "";
+      exec($command, $results);
+      $counter = 0;
+      while ($counter < count($results)) {
+        if (!preg_match('/\Disk quotas for user\b/',$results[$counter])) {
+          $aup_quota .= $results[$counter]."\n";
+        }
+        $counter++;
+      }
+      unset($results);
+      table_row("fa fa-hdd-o", "$l_au_quota:", "", "none", "<pre>$aup_quota</pre>");
+      echo "  </table>\n";
+      echo "</div>\n";
+      // Lets create the operation and insert it
+      $optxt  = "insert into OPERATIONS (ot_r_date, ot_r_time, ";
+      $optxt .= "ot_r_user, ot_r_username, ot_id, ot_d_username, ot_d_flags, ot_d_comment, os_id) values(";
+      $optxt .= "'$date', '$time', '$surc_user', '$surv_user', 26, ";
+      $optxt .= "'$aup_username', '', '', '1');";
+      $doop = db_query($optxt);
+      $op_id=$dblink->insert_id;
+      oplogs("$aup_username", "26", "", "", "$op_id");
+      echo "<div class=\"card\">\n";
+      echo "  <h5 class=\"card-header\"><i class=\"fa fa-exclamation-circle\"></i> $l_au_important</h5>\n";
+      echo "  <div class=\"card-body\">\n";
+      echo "    <h5 class=\"card-title\">$l_au_taskscheduled</h5>\n";
+      echo "    <p class=\"card-text\">$l_au_taskid: $op_id</p>\n";
+      echo "  </div>\n";
+      echo "</div>\n";
+    } else {
+      echo "<form method=\"post\" enctype=\"multipart/form-data\" action=\"".$_SERVER['REQUEST_URI']."\" autocomplete=\"off\">\n";
+      echo "<div class=\"title\"><strong>$l_au_unblockuserconf</strong></div>\n";
+      echo "<div class=\"table-responsive-sm\">\n";
+      // Lets find the user
+      $command = "/usr/bin/cat /etc/passwd";
+      $counter = 0;
+      exec($command, $results);
+      while ($counter < count($results)) {
+        $line = $results[$counter];
+        list($au_username,$au_x,$au_uid,$au_gid,$au_info, $au_home, $au_shell)=explode(":",$line);
+        if ($au_uid>=$surp_ugmin and $au_uid<$surp_ugmax) {
+          if ($au_uid == $in_user) {
+            $aup_username = $au_username;
+            $aup_uid = $au_uid;
+            $aup_gid = $au_gid;
+            $aup_info = $au_info;
+            $aup_home = $au_home;
+            $aup_shell = $au_shell;
+          }
+        }
+        $counter++;
+      }
+      unset($results);
+      echo "  <table class=\"table table-sm table-hover\">\n"; 
+      table_row("fa fa-user-o", "$l_au_uid:", "", "none", "$aup_uid");
+      table_row("fa fa-user-circle-o", "$l_au_gid:", "", "none", "$aup_gid");
+      table_row("fa fa-user", "$l_au_username:", "", "none", "$aup_username");
+      table_row("fa fa-info-circle", "$l_au_info:", "", "none", "$aup_info");
+      table_row("fa fa-home", "$l_au_home:", "", "none", "$aup_home");
+      table_row("fa fa-terminal", "$l_au_shell:", "", "none", "$aup_shell");
+      $command = "/usr/bin/id -Gn $aup_username";
+      $aup_groups = "";
+      exec($command, $results);
+      $aup_groups = $results[0];
+      unset($results);
+      table_row("fa fa-users", "$l_au_groups:", "", "none", "$aup_groups");
+      $command = "/usr/bin/sudo /usr/bin/quota -vs --show-mntpoint -u $aup_username";
+      $aup_quota = "";
+      exec($command, $results);
+      $counter = 0;
+      while ($counter < count($results)) {
+        if (!preg_match('/\Disk quotas for user\b/',$results[$counter])) {
+          $aup_quota .= $results[$counter]."\n";
+        }
+        $counter++;
+      }
+      unset($results);
+      table_row("fa fa-hdd-o", "$l_au_quota:", "", "none", "<pre>$aup_quota</pre>");
+      echo "<input name=\"in_user\" value=\"$in_user\" type=\"hidden\">\n";
+      echo "<input name=\"in_unblock\" value=\"1\" type=\"hidden\">\n";
+      echo "<input name=\"in_confirm\" value=\"1\" type=\"hidden\">\n";
+      $reset = "<a href=\"$PHPSELF\"><button type=\"button\" class=\"btn btn-danger\">$l_no</button></a>";
+      $submit = "<button type=\"submit\" class=\"btn btn-success\">$l_yesconfirm</button>";
+      table_row("", "$reset", "", "none", "$submit");
+      echo "  </table>\n";
+      echo "</div>\n";
+      echo "</form>\n";
+    }
+  } elseif ($in_block == 1) {
+    if ($in_confirm == 1) {
+      echo "<div class=\"title\"><strong>$l_au_blockuserop</strong></div>\n";
+      echo "<div class=\"table-responsive-sm\">\n";
+      // Lets find the user
+      $command = "/usr/bin/cat /etc/passwd";
+      $counter = 0;
+      exec($command, $results);
+      while ($counter < count($results)) {
+        $line = $results[$counter];
+        list($au_username,$au_x,$au_uid,$au_gid,$au_info, $au_home, $au_shell)=explode(":",$line);
+        if ($au_uid>=$surp_ugmin and $au_uid<$surp_ugmax) {
+          if ($au_uid == $in_user) {
+            $aup_username = $au_username;
+            $aup_uid = $au_uid;
+            $aup_gid = $au_gid;
+            $aup_info = $au_info;
+            $aup_home = $au_home;
+            $aup_shell = $au_shell;
+          }
+        }
+        $counter++;
+      }
+      unset($results);
+      echo "  <table class=\"table table-sm table-hover\">\n"; 
+      table_row("fa fa-user-o", "$l_au_uid:", "", "none", "$aup_uid");
+      table_row("fa fa-user-circle-o", "$l_au_gid:", "", "none", "$aup_gid");
+      table_row("fa fa-user", "$l_au_username:", "", "none", "$aup_username");
+      table_row("fa fa-info-circle", "$l_au_info:", "", "none", "$aup_info");
+      table_row("fa fa-home", "$l_au_home:", "", "none", "$aup_home");
+      table_row("fa fa-terminal", "$l_au_shell:", "", "none", "$aup_shell");
+      $command = "/usr/bin/id -Gn $aup_username";
+      $aup_groups = "";
+      exec($command, $results);
+      $aup_groups = $results[0];
+      unset($results);
+      table_row("fa fa-users", "$l_au_groups:", "", "none", "$aup_groups");
+      $command = "/usr/bin/sudo /usr/bin/quota -vs --show-mntpoint -u $aup_username";
+      $aup_quota = "";
+      exec($command, $results);
+      $counter = 0;
+      while ($counter < count($results)) {
+        if (!preg_match('/\Disk quotas for user\b/',$results[$counter])) {
+          $aup_quota .= $results[$counter]."\n";
+        }
+        $counter++;
+      }
+      unset($results);
+      table_row("fa fa-hdd-o", "$l_au_quota:", "", "none", "<pre>$aup_quota</pre>");
+      echo "  </table>\n";
+      echo "</div>\n";
+      // Lets create the operation and insert it
+      $optxt  = "insert into OPERATIONS (ot_r_date, ot_r_time, ";
+      $optxt .= "ot_r_user, ot_r_username, ot_id, ot_d_username, ot_d_flags, ot_d_comment, os_id) values(";
+      $optxt .= "'$date', '$time', '$surc_user', '$surv_user', 25, ";
+      $optxt .= "'$aup_username', '', '', '1');";
+      $doop = db_query($optxt);
+      $op_id=$dblink->insert_id;
+      oplogs("$aup_username", "25", "", "", "$op_id");
+      echo "<div class=\"card\">\n";
+      echo "  <h5 class=\"card-header\"><i class=\"fa fa-exclamation-circle\"></i> $l_au_important</h5>\n";
+      echo "  <div class=\"card-body\">\n";
+      echo "    <h5 class=\"card-title\">$l_au_taskscheduled</h5>\n";
+      echo "    <p class=\"card-text\">$l_au_taskid: $op_id</p>\n";
+      echo "  </div>\n";
+      echo "</div>\n";
+    } else {
+      echo "<form method=\"post\" enctype=\"multipart/form-data\" action=\"".$_SERVER['REQUEST_URI']."\" autocomplete=\"off\">\n";
+      echo "<div class=\"title\"><strong>$l_au_blockuserconf</strong></div>\n";
+      echo "<div class=\"table-responsive-sm\">\n";
+      // Lets find the user
+      $command = "/usr/bin/cat /etc/passwd";
+      $counter = 0;
+      exec($command, $results);
+      while ($counter < count($results)) {
+        $line = $results[$counter];
+        list($au_username,$au_x,$au_uid,$au_gid,$au_info, $au_home, $au_shell)=explode(":",$line);
+        if ($au_uid>=$surp_ugmin and $au_uid<$surp_ugmax) {
+          if ($au_uid == $in_user) {
+            $aup_username = $au_username;
+            $aup_uid = $au_uid;
+            $aup_gid = $au_gid;
+            $aup_info = $au_info;
+            $aup_home = $au_home;
+            $aup_shell = $au_shell;
+          }
+        }
+        $counter++;
+      }
+      unset($results);
+      echo "  <table class=\"table table-sm table-hover\">\n"; 
+      table_row("fa fa-user-o", "$l_au_uid:", "", "none", "$aup_uid");
+      table_row("fa fa-user-circle-o", "$l_au_gid:", "", "none", "$aup_gid");
+      table_row("fa fa-user", "$l_au_username:", "", "none", "$aup_username");
+      table_row("fa fa-info-circle", "$l_au_info:", "", "none", "$aup_info");
+      table_row("fa fa-home", "$l_au_home:", "", "none", "$aup_home");
+      table_row("fa fa-terminal", "$l_au_shell:", "", "none", "$aup_shell");
+      $command = "/usr/bin/id -Gn $aup_username";
+      $aup_groups = "";
+      exec($command, $results);
+      $aup_groups = $results[0];
+      unset($results);
+      table_row("fa fa-users", "$l_au_groups:", "", "none", "$aup_groups");
+      $command = "/usr/bin/sudo /usr/bin/quota -vs --show-mntpoint -u $aup_username";
+      $aup_quota = "";
+      exec($command, $results);
+      $counter = 0;
+      while ($counter < count($results)) {
+        if (!preg_match('/\Disk quotas for user\b/',$results[$counter])) {
+          $aup_quota .= $results[$counter]."\n";
+        }
+        $counter++;
+      }
+      unset($results);
+      table_row("fa fa-hdd-o", "$l_au_quota:", "", "none", "<pre>$aup_quota</pre>");
+      echo "<input name=\"in_user\" value=\"$in_user\" type=\"hidden\">\n";
+      echo "<input name=\"in_block\" value=\"1\" type=\"hidden\">\n";
+      echo "<input name=\"in_confirm\" value=\"1\" type=\"hidden\">\n";
+      $reset = "<a href=\"$PHPSELF\"><button type=\"button\" class=\"btn btn-danger\">$l_no</button></a>";
+      $submit = "<button type=\"submit\" class=\"btn btn-success\">$l_yesconfirm</button>";
+      table_row("", "$reset", "", "none", "$submit");
+      echo "  </table>\n";
+      echo "</div>\n";
+      echo "</form>\n";
+    }
+  } elseif ($in_deluser == 1) {
     if ($in_confirm == 1) {
       echo "<div class=\"title\"><strong>$l_au_userremoval</strong></div>\n";
       echo "<div class=\"table-responsive-sm\">\n";
@@ -781,7 +1033,7 @@
           table_row("fa fa-info-circle", "$l_au_info:", "", "none", "$in_info");
           echo "<input type=\"hidden\" name=\"in_info\" value=\"$in_info\">\n";
           $homeshow = $in_home;
-          if ($in_home == "") { $homeshow = "/home/$in_username"; }
+          if ($in_home == "") { $homeshow = "/home/$in_username"; $in_home = "/home/$in_username"; }
           table_row("fa fa-home", "$l_au_home:", "", "none", "$homeshow");
           echo "<input type=\"hidden\" name=\"in_home\" value=\"$in_home\">\n";
           table_row("fa fa-terminal", "$l_au_shell:", "", "none", "$in_shell");
@@ -805,12 +1057,16 @@
       echo "  <table class=\"table table-sm table-hover\">\n"; 
       table_row("fa fa-user", "$l_au_username:", "in_username", "text", "", "$l_username");
       table_row("", "", "", "none", "<small>$l_au_usernamenotice</small>");
-      table_row("fa fa-key", "$l_password:", "in_password", "text", "", "$l_password");
+      table_row("fa fa-key", "$l_password:", "in_password", "text", "$surp_defpass", "$l_password");
       table_row("", "", "", "none", "<small>$l_au_passwdnotice</small>");
       table_row("fa fa-info-circle", "$l_au_info:", "in_info", "text", "", "$l_au_info");
       table_row("", "", "", "none", "<small>$l_au_infonotice</small>");
-      table_row("fa fa-home", "$l_au_home:", "in_home", "text", "", "$l_au_home");
-      table_row("", "", "", "none", "<small>(Si deja en blanco se configurar&aacute; en /home/USUARIO)</small>");
+      if ($surp_allowenterhome == 1) {
+        table_row("fa fa-home", "$l_au_home:", "in_home", "text", "", "$l_au_home");
+        table_row("", "", "", "none", "<small>$l_au_homewarn</small>");
+      } else {
+        table_row("fa fa-home", "$l_au_home:", "in_home", "none", "<small>$l_au_homewarn2</small>", "$l_au_home");
+      }
       $proc_shell  = "<select name=\"in_shell\">\n";
       $proc_shell .= " <option value=\"\">---</option>\n";
       $command = "/usr/bin/cat /etc/shells";
@@ -917,6 +1173,17 @@
     $moduserquota .= "<button type=\"submit\" class=\"btn btn-sm btn-link btn-glink\"><i class=\"fa fa-pencil-square-o\"></i></button>\n";
     $moduserquota .= "</form>\n";
     table_row("fa fa-hdd-o", "$l_au_quota:", "", "none", "<pre>$aup_quota</pre>$moduserquota");
+    $blockuser  = "<form method=\"post\" action=\"".$_SERVER['PHP_SELF']."?action=admusers\">\n";
+    $blockuser .= "<input name=\"in_user\" value=\"$in_user\" type=\"hidden\">\n";
+    $blockuser .= "<input name=\"in_block\" value=\"1\" type=\"hidden\">\n";
+    $blockuser .= "<button type=\"submit\" class=\"btn btn-sm btn-link btn-glink\"><i class=\"fa fa-times-circle-o\"></i> $l_au_blockuser</button>\n";
+    $blockuser .= "</form>\n";
+    $blockuser .= "<form method=\"post\" action=\"".$_SERVER['PHP_SELF']."?action=admusers\">\n";
+    $blockuser .= "<input name=\"in_user\" value=\"$in_user\" type=\"hidden\">\n";
+    $blockuser .= "<input name=\"in_unblock\" value=\"1\" type=\"hidden\">\n";
+    $blockuser .= "<button type=\"submit\" class=\"btn btn-sm btn-link btn-glink\"><i class=\"fa fa-check-circle-o\"></i> $l_au_unblockuser</button>\n";
+    $blockuser .= "</form>\n";
+    table_row("fa fa-pause-circle-o", "$l_block:", "", "none", "$blockuser");
     $userremoval  = "<form method=\"post\" action=\"".$_SERVER['PHP_SELF']."?action=admusers\">\n";
     $userremoval .= "<input name=\"in_user\" value=\"$in_user\" type=\"hidden\">\n";
     $userremoval .= "<input name=\"in_deluser\" value=\"1\" type=\"hidden\">\n";
