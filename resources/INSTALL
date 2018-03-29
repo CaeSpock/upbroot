@@ -1,3 +1,6 @@
 Please add the user that is running the web server to the sudoers file, so it can run the quota checking using root.
 I added this line to /etc/sudoers:
 apache  ALL=(ALL)       NOPASSWD: /usr/bin/quota
+In the database:
+grant all privileges on *.* to upbroot@localhost with grant option;
+flush privileges;

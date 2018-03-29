@@ -121,6 +121,8 @@ INSERT INTO `OPERATIONTYPES` (`ot_id`, `ot_short`, `ot_value`, `ot_showinlogs`) 
 INSERT INTO `OPERATIONTYPES` (`ot_id`, `ot_short`, `ot_value`, `ot_showinlogs`) VALUES (24,'AdmSysUsers_AddUser','AdmSysUsers Adicionar usuario de sistema','1');
 INSERT INTO `OPERATIONTYPES` (`ot_id`, `ot_short`, `ot_value`, `ot_showinlogs`) VALUES (25, 'AdmUsers_BlockUser', 'AdmUsers Bloquear usuario', '1');
 INSERT INTO `OPERATIONTYPES` (`ot_id`, `ot_short`, `ot_value`, `ot_showinlogs`) VALUES (26, 'AdmUsers_UnblockUser', 'AdmUsers Desbloquear usuario', '1');
+INSERT INTO `OPERATIONTYPES` (`ot_id`, `ot_short`, `ot_value`, `ot_showinlogs`) VALUES (27, 'AdmUsers_AddDB', 'AdmUsers Add DataBase', '1');
+INSERT INTO `OPERATIONTYPES` (`ot_id`, `ot_short`, `ot_value`, `ot_showinlogs`) VALUES (28, 'AdmUsers_AddDB_USer', 'AdmUsers DataBase User', '1');
 UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `OPLOGS`;
