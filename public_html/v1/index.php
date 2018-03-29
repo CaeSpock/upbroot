@@ -13,14 +13,8 @@
   $user_session = session_id();
   header('Content-Type: text/html; charset=iso-8859-1');
 
-  $pathinc    = "inc";
-  $pathimg    = "img";
-  $pathlogops = "/home/upbroot/logs/operations";
-  $pathlogsql = "/home/upbroot/logs/sql";
-  $pathppal   = ".";
-
-  // This include uses the full path to the file, as its loated outside of the web directory
-  include_once("/home/upbroot/conf/conf.inc.php");
+  $samepath = getcwd();
+  include_once("$samepath/paths.inc.php");
   include_once("$pathinc/langs/$surp_lang.inc.php");
   include_once("$pathinc/func.inc.php");
   include_once("$pathinc/dbopen.inc.php");

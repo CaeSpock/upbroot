@@ -1,5 +1,11 @@
-20180323: Version 1.0 Lanzada
-          Primera versión disponible para los usuarios
+20180328: Versión 1.0.1
+          Adición de creado y borrado de bases de datos y usuarios de bases de datos para las cuentas de usuario
+          Se separó los path del código principal de las páginas index.php y sistema.php, y del script runtasts.php
+20180325: Versión 1.0.0
+          Se incorpora la posibilidad de bloquer y desbloquear usuarios
+          Creación de usuarios con clave fija (Se puede configurar)
+          Cración de usuarios con directorio home prefijado.
+20180323: Versión estable
           Esta es la primera versión usable, que incorpora toda la funcionalidad básica.
           Aun la documentación será completada y se incorporarán traducciones a otros idiomas.
 20180301: Versión Inicial
