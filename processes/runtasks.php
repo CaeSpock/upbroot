@@ -7,13 +7,9 @@
          $fechabol = gmdate("Y-m-d", time()-$horadiff);
           $horabol = gmdate("H:i:s", time()-$horadiff);
 
-   $pathinc    = "/home/upbroot/public_html/v1/inc";
-   $pathlogops = "/home/upbroot/logs/operations";
-   $pathlogsql = "/home/upbroot/logs/sql";
-  $lockfilepid = "/home/upbroot/processes/lock.pid";
+  $samepath = dirname(__FILE__);
+  include_once("$samepath/paths.inc.php");
 
-  // This include uses the full path to the file, as its loated outside of the web directory
-  include_once("/home/upbroot/conf/conf.inc.php");
   include_once("$pathinc/langs/$surp_lang.inc.php");
   include_once("$pathinc/func.inc.php");
   include_once("$pathinc/dbopen.inc.php");
@@ -193,6 +189,43 @@
         $s_log .= "'$fecha', '$hora', '$po->op_id', '$command', ";
         $s_log .= "'$outputstring', '$return_var');";
         $w_log = db_query($s_log);
+        $command = "create database $rt_login;";
+        $respuesta = db_query($command);
+        unset($output);
+        unset($return_var);
+        $return_var = $dblink->errno;
+        $outputstring = $dblink->error;
+        $return_vars .= $return_var;
+        $s_log  = "insert into TRANSACTIONLOG (tl_date, tl_time, op_id, ";
+        $s_log .= "tl_command, tl_output, tl_returnvar) values(";
+        $s_log .= "'$fecha', '$hora', '$po->op_id', '$command', ";
+        $s_log .= "'$outputstring', '$return_var');";
+        $w_log = db_query($s_log);
+        $command2 = "Grant all privileges on $rt_login.* to $rt_login@localhost identified by '$rt_password';";
+        $respuesta = db_query($command2);
+        unset($output);
+        unset($return_var);
+        $return_var = $dblink->errno;
+        $outputstring = $dblink->error;
+        $return_vars .= $return_var;
+        $command2 = str_replace("'", "\'", $command2);
+        $s_log  = "insert into TRANSACTIONLOG (tl_date, tl_time, op_id, ";
+        $s_log .= "tl_command, tl_output, tl_returnvar) values(";
+        $s_log .= "'$fecha', '$hora', '$po->op_id', '$command2', ";
+        $s_log .= "'$outputstring', '$return_var');";
+        $w_log = db_query($s_log);
+        $command3 = "flush privileges;";
+        $respuesta = db_query($command3);
+        unset($output);
+        unset($return_var);
+        $return_var = $dblink->errno;
+        $outputstring = $dblink->error;
+        $return_vars .= $return_var;
+        $s_log  = "insert into TRANSACTIONLOG (tl_date, tl_time, op_id, ";
+        $s_log .= "tl_command, tl_output, tl_returnvar) values(";
+        $s_log .= "'$fecha', '$hora', '$po->op_id', '$command3', ";
+        $s_log .= "'$outputstring', '$return_var');";
+        $w_log = db_query($s_log);
       }
       unset($output);
       $return_var = $return_vars;
@@ -323,6 +356,32 @@
       $s_log .= "'$fecha', '$hora', '$po->op_id', '$command', ";
       $s_log .= "'$outputstring', '$return_var');";
       $w_log = db_query($s_log);
+      $return_vars = $return_var;
+      $command = "drop database $po->ot_d_username;";
+      $respuesta = db_query($command);
+      unset($output);
+      unset($return_var);
+      $return_var = $dblink->errno;
+      $outputstring = $dblink->error;
+      $return_vars .= $return_var;
+      $s_log  = "insert into TRANSACTIONLOG (tl_date, tl_time, op_id, ";
+      $s_log .= "tl_command, tl_output, tl_returnvar) values(";
+      $s_log .= "'$fecha', '$hora', '$po->op_id', '$command', ";
+      $s_log .= "'$outputstring', '$return_var');";
+      $w_log = db_query($s_log);
+      $command2 = "drop user ".$po->ot_d_username."@localhost;";
+      $respuesta = db_query($command2);
+      unset($output);
+      unset($return_var);
+      $return_var = $dblink->errno;
+      $outputstring = $dblink->error;
+      $return_vars .= $return_var;
+      $s_log  = "insert into TRANSACTIONLOG (tl_date, tl_time, op_id, ";
+      $s_log .= "tl_command, tl_output, tl_returnvar) values(";
+      $s_log .= "'$fecha', '$hora', '$po->op_id', '$command2', ";
+      $s_log .= "'$outputstring', '$return_var');";
+      $w_log = db_query($s_log);
+      $return_var  = $return_vars;
     } elseif ($po->ot_id==18) {
       // This is a group additing!
       $command = "/usr/sbin/groupadd $po->ot_d_username";
