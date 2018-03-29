@@ -168,7 +168,7 @@
   $l_au_useraddition = "Creaci&oacute;n de usuario:";
   $l_au_usernamenotice = "(No debe existir en el sistema, use min&uacute;sculas)";
   $l_au_passwdnotice = "(Ser&aacute; mostrada, para que el usuario pueda configurar)";
-  $l_au_infonotice = "(Formato: Nombre completo,Oficina,tel&eacute;fono)";
+  $l_au_infonotice = "(Formato: Nombre completo,C&oacute;digo,E-Mail,Tel&eacute;fono)";
   $l_au_homenotice = "(Si deja en blanco se configurar&aacute; en /home/USUARIO)";
   $l_au_viewuser = "Informaci&oacute;n de usuario";
   $l_au_userscurrent = "Usuarios Actuales del Sistema:";
