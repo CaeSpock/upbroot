@@ -450,11 +450,6 @@
     $doit = db_query($os);
     echo "[".date("Y-m-i H:i:s")."] -----------------------------------\n";
   }
-  // Lock acquired; let's write our PID to the lock file for the convenience
-  // of humans who may wish to terminate the script.
-  ftruncate($lock_file, 0);
-  fwrite($lock_file, getmypid() . "\n");
-
   echo "[".date("Y-m-i H:i:s")."] ----------------------------------------------------\n";
   echo "[".date("Y-m-i H:i:s")."] Process terminating ...\n";
   // All done; we blank the PID file and explicitly release the lock 
