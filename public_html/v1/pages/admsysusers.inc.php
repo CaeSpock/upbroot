@@ -416,15 +416,13 @@
         $ins .= "'$row_c->city_name', '$in_address', '$row_d->department_name', '$surc_user', ";
         $ins .= "'$surv_user_name', '$user_ip', '$date $time', '3', ";
         $ins .= "'$surc_user', '$surv_user_name', '$user_ip', '$date $time');";
-        // echo "Hare: $ins<br>\n";
         $doop = db_query($ins);
         $insert_id=$dblink->insert_id;
         $logflags  = "";
-        $logflags .= "$insert_id|$in_level|$in_city|$in_department|$in_username|$in_pasword|";
+        $logflags .= "$insert_id|$in_level|$in_city|$in_department|$in_username|$in_password|";
         $logflags .= "$in_name|$in_idc|$in_year-$in_month-$in_day|$in_email|$in_phonenumber|";
         $logflags .= "$row_c->city_name|$in_address|$row_d->department_name|$surc_user|";
         $logflags .= "$surv_user_name|$user_ip|$date $time|3|";
-        // echo "Log: $logflags<br>\n";
         oplogs("$in_username", "24", "$logflags", "");
         echo "<div class=\"card\">\n";
         echo "  <h5 class=\"card-header\"><i class=\"fa fa-exclamation-circle\"></i> $l_au_important</h5>\n";
