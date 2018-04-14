@@ -199,6 +199,8 @@
   $l_au_backtotop = "[^ Arriba ^]";
   $l_au_dbupass = "Modificaci&oacute;n de la contrase&ntilde;a de acceso a la base de datos";
   $l_au_accpass = "Modificaci&oacute;n de la contrase&ntilde;a del usuario";
+  $l_au_accpasschange = "Cambiar contrase&ntilde;a del usuario";
+  $l_au_dbupasschange = "Cambiar contrase&ntilde;a del acceso a la base de datos";
   
     // Admin Groups
   $l_ag_groupname = "Nombre del Grupo";
