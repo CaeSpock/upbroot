@@ -58,7 +58,7 @@
       $errorgraph = "";
       eval_null("$in_password", "$l_nullpassword");
       if ($in_confirm == 1 ) {
-        echo "<div class=\"title\"><strong>Modificaci&oacute;n de la contrase&ntilde;a del acces a la base de datos:</strong></div>\n";
+        echo "<div class=\"title\"><strong>$l_au_dbupass:</strong></div>\n";
         echo "<div class=\"table-responsive-sm\">\n";
         echo "  <table class=\"table table-sm table-hover\">\n";
         if ($error == 1) {
@@ -90,7 +90,7 @@
           echo "</div>\n";
         }
       } else {
-        echo "<div class=\"title\"><strong>$l_au_usermodconf</strong></div>\n";
+        echo "<div class=\"title\"><strong>$l_au_dbupass:</strong></div>\n";
         echo "<div class=\"table-responsive-sm\">\n";
         echo "  <table class=\"table table-sm table-hover\">\n";
         if ($error == 1) {
@@ -118,7 +118,7 @@
         echo "</div>\n";
       }
     } else {
-      echo "<div class=\"title\"><strong>Modificaci&oacute;n de la contrase&ntilde;a de acceso a la base de datos:</strong></div>\n";
+      echo "<div class=\"title\"><strong>$l_au_dbupass:</strong></div>\n";
       echo "<div class=\"table-responsive-sm\">\n";
       echo "  <table class=\"table table-sm table-hover\">\n";
       table_row("fa fa-user-o", "$l_au_uid:", "", "none", "$aup_uid");
@@ -164,7 +164,7 @@
       $errorgraph = "";
       eval_null("$in_password", "$l_nullpassword");
       if ($in_confirm == 1 ) {
-        echo "<div class=\"title\"><strong>Modificaci&oacute;n de la contrase&ntilde;a del usuario:</strong></div>\n";
+        echo "<div class=\"title\"><strong>$l_au_accpass:</strong></div>\n";
         echo "<div class=\"table-responsive-sm\">\n";
         echo "  <table class=\"table table-sm table-hover\">\n";
         if ($error == 1) {
@@ -196,7 +196,7 @@
           echo "</div>\n";
         }
       } else {
-        echo "<div class=\"title\"><strong>$l_au_usermodconf</strong></div>\n";
+        echo "<div class=\"title\"><strong>$l_au_accpass:</strong></div>\n";
         echo "<div class=\"table-responsive-sm\">\n";
         echo "  <table class=\"table table-sm table-hover\">\n";
         if ($error == 1) {
@@ -224,7 +224,7 @@
         echo "</div>\n";
       }
     } else {
-      echo "<div class=\"title\"><strong>Modificaci&oacute;n de la contrase&ntilde;a del usuario:</strong></div>\n";
+      echo "<div class=\"title\"><strong>$l_au_accpass:</strong></div>\n";
       echo "<div class=\"table-responsive-sm\">\n";
       echo "  <table class=\"table table-sm table-hover\">\n";
       table_row("fa fa-user-o", "$l_au_uid:", "", "none", "$aup_uid");
