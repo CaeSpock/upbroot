@@ -62,6 +62,7 @@
   $l_add = "Adicionar";
   $l_today = "Hoy";
   $l_search = "Buscar";
+  $l_database = "Base de Datos";
 
   // Errors & Evaluations (Verifications)
   $l_verifyingvars = "Verificando variables";
@@ -183,8 +184,21 @@
   $l_au_blockuserop = "Bloqueo de usuario ...";
   $l_au_unblockuserconf = "Por favor confirme que desea desbloquear el siguiente usuario:";
   $l_au_unblockuserop = "Desbloqueo de usuario ...";
-
-  // Admin Groups
+  $l_au_summary = "Resumen";
+  $l_au_summaryv = "Ver resumen de la cuenta";
+  $l_au_summary_s = "Estado de la cuenta";
+  $l_au_summary_h = "Directorio home";
+  $l_au_summary_c = "Crontab";
+  $l_au_summary_d = "Base de datos";
+  $l_au_summary_p = "Procesos";
+  $l_au_summaryfailed = "Fallo inesperado al abrir el fichero.";
+  $l_au_summarynoexists = "No existe el fichero de datos del usuario.";
+  $l_au_contents = "Contenido";
+  $l_au_nocrontab = "Sin fichero de crontab";
+  $l_au_nodbdir = "Sin directorio de base de datos personal";
+  $l_au_backtotop = "[^ Arriba ^]";
+  
+    // Admin Groups
   $l_ag_groupname = "Nombre del Grupo";
   $l_ag_groupmembers ="Miembros del grupo";
   $l_ag_operations = "Operaciones";
