@@ -11,6 +11,9 @@
   $in_modshell  = receive_variable("POST", "in_modshell", "INT", 1);
   $in_modgroups = receive_variable("POST", "in_modgroups", "INT", 1);
   $in_modquota  = receive_variable("POST", "in_modquota", "INT", 1);
+  $in_summary   = receive_variable("POST", "in_summary", "INT", 1);
+  $in_accpass   = receive_variable("POST", "in_accpass", "INT", 1);
+  $in_dbupass   = receive_variable("POST", "in_dbupass", "INT", 1);
   $in_block     = receive_variable("POST", "in_block", "INT", 1);
   $in_unblock   = receive_variable("POST", "in_unblock", "INT", 1);
   $in_doit      = receive_variable("POST", "in_doit", "INT", 1);
@@ -26,8 +29,271 @@
   $in_quotasi   = receive_variable("POST", "in_quotasi", "INT", 15);
   $in_quotahi   = receive_variable("POST", "in_quotahi", "INT", 15);
   $in_groups    = receive_variable("POST", "in_groups", "STRING", 250);
-
-  if ($in_unblock == 1) {
+  
+  if ($in_dbupass == 1) {
+    echo "<form method=\"post\" enctype=\"multipart/form-data\" action=\"".$_SERVER['REQUEST_URI']."\" autocomplete=\"off\">\n";
+    // Lets find the user
+    $command = "/usr/bin/cat /etc/passwd";
+    $counter = 0;
+    exec($command, $results);
+    while ($counter < count($results)) {
+      $line = $results[$counter];
+      list($au_username,$au_x,$au_uid,$au_gid,$au_info, $au_home, $au_shell)=explode(":",$line);
+      if ($au_uid>=$surp_ugmin and $au_uid<$surp_ugmax) {
+        if ($au_uid == $in_user) {
+          $aup_username = $au_username;
+          $aup_uid = $au_uid;
+          $aup_gid = $au_gid;
+          $aup_info = $au_info;
+          $aup_home = $au_home;
+          $aup_shell = $au_shell;
+        }
+      }
+      $counter++;
+    }
+    unset($results);
+    if ($in_doit == 1) {
+      $error = 0;
+      $errortext = "";
+      $errorgraph = "";
+      eval_null("$in_password", "$l_nullpassword");
+      if ($in_confirm == 1 ) {
+        echo "<div class=\"title\"><strong>Modificaci&oacute;n de la contrase&ntilde;a del acces a la base de datos:</strong></div>\n";
+        echo "<div class=\"table-responsive-sm\">\n";
+        echo "  <table class=\"table table-sm table-hover\">\n";
+        if ($error == 1) {
+          table_row("fa fa-exclamation-triangle", "$l_errorsfound:", "", "none", "$errortext");
+          echo "<tr><td colspan=\"2\"><center>\n";
+          go_back();
+          echo "</center></td></tr>\n";
+          echo "  </table>\n";
+        } else {
+          table_row("fa fa-user-o", "$l_au_uid:", "", "none", "$aup_uid");
+          table_row("fa fa-user-circle-o", "$l_au_gid:", "", "none", "$aup_gid");
+          table_row("fa fa-user", "$l_au_username:", "", "none", "$aup_username");
+          table_row("fa fa-key", "$l_up_newpass:", "", "none", "$in_password");
+          echo "  </table>\n";
+          // Lets create the operation and insert it
+          $optxt  = "insert into OPERATIONS (ot_r_date, ot_r_time, ";
+          $optxt .= "ot_r_user, ot_r_username, ot_id, ot_d_username, ot_d_flags, ot_d_comment, os_id) values(";
+          $optxt .= "'$date', '$time', '$surc_user', '$surv_user', 31, ";
+          $optxt .= "'$aup_username', '$in_password', '', '1');";
+          $doop = db_query($optxt);
+          $op_id=$dblink->insert_id;
+          oplogs("$aup_username", "31", "$in_password", "", "$op_id");
+          echo "<div class=\"card\">\n";
+          echo "  <h5 class=\"card-header\"><i class=\"fa fa-exclamation-circle\"></i> $l_au_important</h5>\n";
+          echo "  <div class=\"card-body\">\n";
+          echo "    <h5 class=\"card-title\">$l_au_taskscheduled</h5>\n";
+          echo "    <p class=\"card-text\">$l_au_taskid: $op_id</p>\n";
+          echo "  </div>\n";
+          echo "</div>\n";
+        }
+      } else {
+        echo "<div class=\"title\"><strong>$l_au_usermodconf</strong></div>\n";
+        echo "<div class=\"table-responsive-sm\">\n";
+        echo "  <table class=\"table table-sm table-hover\">\n";
+        if ($error == 1) {
+          table_row("fa fa-exclamation-triangle", "$l_errorsfound:", "", "none", "$errortext");
+          echo "<tr><td colspan=\"2\"><center>\n";
+          go_back();
+          echo "</center></td></tr>\n";
+          echo "  </table>\n";
+        } else {
+          table_row("fa fa-user-o", "$l_au_uid:", "", "none", "$aup_uid");
+          table_row("fa fa-user-circle-o", "$l_au_gid:", "", "none", "$aup_gid");
+          table_row("fa fa-user", "$l_au_username:", "", "none", "$aup_username");
+          table_row("fa fa-key", "$l_up_newpass:", "", "none", "$in_password");
+          echo "<input name=\"in_user\" value=\"$in_user\" type=\"hidden\">\n";
+          echo "<input name=\"in_password\" value=\"$in_password\" type=\"hidden\">\n";
+          echo "<input name=\"in_dbupass\" value=\"1\" type=\"hidden\">\n";
+          echo "<input name=\"in_doit\" value=\"1\" type=\"hidden\">\n";
+          echo "<input name=\"in_confirm\" value=\"1\" type=\"hidden\">\n";
+          $reset = "<a href=\"$REQUESTURI\"><button type=\"button\" class=\"btn btn-danger\">$l_no</button></a>";
+          $submit = "<button type=\"submit\" class=\"btn btn-success\">$l_yesconfirm</button>";
+          table_row("", "$reset", "", "none", "$submit");
+          echo "  </table>\n";
+          echo "<br /><br />\n";
+        }
+        echo "</div>\n";
+      }
+    } else {
+      echo "<div class=\"title\"><strong>Modificaci&oacute;n de la contrase&ntilde;a de acceso a la base de datos:</strong></div>\n";
+      echo "<div class=\"table-responsive-sm\">\n";
+      echo "  <table class=\"table table-sm table-hover\">\n";
+      table_row("fa fa-user-o", "$l_au_uid:", "", "none", "$aup_uid");
+      table_row("fa fa-user-circle-o", "$l_au_gid:", "", "none", "$aup_gid");
+      table_row("fa fa-user", "$l_au_username:", "", "none", "$aup_username");
+      table_row("fa fa-key", "$l_password:", "in_password", "text", "", "$l_password");
+      echo "<input name=\"in_user\" value=\"$in_user\" type=\"hidden\">\n";
+      echo "<input name=\"in_dbupass\" value=\"1\" type=\"hidden\">\n";
+      echo "<input name=\"in_doit\" value=\"1\" type=\"hidden\">\n";
+      $reset = "<button type=\"reset\" class=\"btn btn-danger\">$l_reset</button>";
+      $submit = "<button type=\"submit\" class=\"btn btn-success\">$l_update</button>";
+      table_row("", "$reset", "", "none", "$submit");
+      echo "  </table>\n";
+      echo "<br /><br />\n";
+      echo "</div>\n";
+    }
+    echo "</form>\n";
+  } elseif ($in_accpass == 1) {
+    echo "<form method=\"post\" enctype=\"multipart/form-data\" action=\"".$_SERVER['REQUEST_URI']."\" autocomplete=\"off\">\n";
+    // Lets find the user
+    $command = "/usr/bin/cat /etc/passwd";
+    $counter = 0;
+    exec($command, $results);
+    while ($counter < count($results)) {
+      $line = $results[$counter];
+      list($au_username,$au_x,$au_uid,$au_gid,$au_info, $au_home, $au_shell)=explode(":",$line);
+      if ($au_uid>=$surp_ugmin and $au_uid<$surp_ugmax) {
+        if ($au_uid == $in_user) {
+          $aup_username = $au_username;
+          $aup_uid = $au_uid;
+          $aup_gid = $au_gid;
+          $aup_info = $au_info;
+          $aup_home = $au_home;
+          $aup_shell = $au_shell;
+        }
+      }
+      $counter++;
+    }
+    unset($results);
+    if ($in_doit == 1) {
+      $error = 0;
+      $errortext = "";
+      $errorgraph = "";
+      eval_null("$in_password", "$l_nullpassword");
+      if ($in_confirm == 1 ) {
+        echo "<div class=\"title\"><strong>Modificaci&oacute;n de la contrase&ntilde;a del usuario:</strong></div>\n";
+        echo "<div class=\"table-responsive-sm\">\n";
+        echo "  <table class=\"table table-sm table-hover\">\n";
+        if ($error == 1) {
+          table_row("fa fa-exclamation-triangle", "$l_errorsfound:", "", "none", "$errortext");
+          echo "<tr><td colspan=\"2\"><center>\n";
+          go_back();
+          echo "</center></td></tr>\n";
+          echo "  </table>\n";
+        } else {
+          table_row("fa fa-user-o", "$l_au_uid:", "", "none", "$aup_uid");
+          table_row("fa fa-user-circle-o", "$l_au_gid:", "", "none", "$aup_gid");
+          table_row("fa fa-user", "$l_au_username:", "", "none", "$aup_username");
+          table_row("fa fa-key", "$l_up_newpass:", "", "none", "$in_password");
+          echo "  </table>\n";
+          // Lets create the operation and insert it
+          $optxt  = "insert into OPERATIONS (ot_r_date, ot_r_time, ";
+          $optxt .= "ot_r_user, ot_r_username, ot_id, ot_d_username, ot_d_flags, ot_d_comment, os_id) values(";
+          $optxt .= "'$date', '$time', '$surc_user', '$surv_user', 30, ";
+          $optxt .= "'$aup_username', '$in_password', '', '1');";
+          $doop = db_query($optxt);
+          $op_id=$dblink->insert_id;
+          oplogs("$aup_username", "30", "$in_password", "", "$op_id");
+          echo "<div class=\"card\">\n";
+          echo "  <h5 class=\"card-header\"><i class=\"fa fa-exclamation-circle\"></i> $l_au_important</h5>\n";
+          echo "  <div class=\"card-body\">\n";
+          echo "    <h5 class=\"card-title\">$l_au_taskscheduled</h5>\n";
+          echo "    <p class=\"card-text\">$l_au_taskid: $op_id</p>\n";
+          echo "  </div>\n";
+          echo "</div>\n";
+        }
+      } else {
+        echo "<div class=\"title\"><strong>$l_au_usermodconf</strong></div>\n";
+        echo "<div class=\"table-responsive-sm\">\n";
+        echo "  <table class=\"table table-sm table-hover\">\n";
+        if ($error == 1) {
+          table_row("fa fa-exclamation-triangle", "$l_errorsfound:", "", "none", "$errortext");
+          echo "<tr><td colspan=\"2\"><center>\n";
+          go_back();
+          echo "</center></td></tr>\n";
+          echo "  </table>\n";
+        } else {
+          table_row("fa fa-user-o", "$l_au_uid:", "", "none", "$aup_uid");
+          table_row("fa fa-user-circle-o", "$l_au_gid:", "", "none", "$aup_gid");
+          table_row("fa fa-user", "$l_au_username:", "", "none", "$aup_username");
+          table_row("fa fa-key", "$l_up_newpass:", "", "none", "$in_password");
+          echo "<input name=\"in_user\" value=\"$in_user\" type=\"hidden\">\n";
+          echo "<input name=\"in_password\" value=\"$in_password\" type=\"hidden\">\n";
+          echo "<input name=\"in_accpass\" value=\"1\" type=\"hidden\">\n";
+          echo "<input name=\"in_doit\" value=\"1\" type=\"hidden\">\n";
+          echo "<input name=\"in_confirm\" value=\"1\" type=\"hidden\">\n";
+          $reset = "<a href=\"$REQUESTURI\"><button type=\"button\" class=\"btn btn-danger\">$l_no</button></a>";
+          $submit = "<button type=\"submit\" class=\"btn btn-success\">$l_yesconfirm</button>";
+          table_row("", "$reset", "", "none", "$submit");
+          echo "  </table>\n";
+          echo "<br /><br />\n";
+        }
+        echo "</div>\n";
+      }
+    } else {
+      echo "<div class=\"title\"><strong>Modificaci&oacute;n de la contrase&ntilde;a del usuario:</strong></div>\n";
+      echo "<div class=\"table-responsive-sm\">\n";
+      echo "  <table class=\"table table-sm table-hover\">\n";
+      table_row("fa fa-user-o", "$l_au_uid:", "", "none", "$aup_uid");
+      table_row("fa fa-user-circle-o", "$l_au_gid:", "", "none", "$aup_gid");
+      table_row("fa fa-user", "$l_au_username:", "", "none", "$aup_username");
+      table_row("fa fa-key", "$l_password:", "in_password", "text", "", "$l_password");
+      echo "<input name=\"in_user\" value=\"$in_user\" type=\"hidden\">\n";
+      echo "<input name=\"in_accpass\" value=\"1\" type=\"hidden\">\n";
+      echo "<input name=\"in_doit\" value=\"1\" type=\"hidden\">\n";
+      $reset = "<button type=\"reset\" class=\"btn btn-danger\">$l_reset</button>";
+      $submit = "<button type=\"submit\" class=\"btn btn-success\">$l_update</button>";
+      table_row("", "$reset", "", "none", "$submit");
+      echo "  </table>\n";
+      echo "<br /><br />\n";
+      echo "</div>\n";
+    }
+    echo "</form>\n";
+  } elseif ($in_summary == 1) {
+    echo "<div class=\"title\"><strong>$l_au_summaryv</strong></div>\n";
+    echo "<div class=\"table-responsive-sm\">\n";
+    // Lets find the user
+    $command = "/usr/bin/cat /etc/passwd";
+    $counter = 0;
+    exec($command, $results);
+    while ($counter < count($results)) {
+      $line = $results[$counter];
+      list($au_username,$au_x,$au_uid,$au_gid,$au_info, $au_home, $au_shell)=explode(":",$line);
+      if ($au_uid>=$surp_ugmin and $au_uid<$surp_ugmax) {
+        if ($au_uid == $in_user) {
+          $aup_username = $au_username;
+          $aup_uid = $au_uid;
+          $aup_gid = $au_gid;
+          $aup_info = $au_info;
+          $aup_home = $au_home;
+          $aup_shell = $au_shell;
+        }
+      }
+      $counter++;
+    }
+    unset($results);
+    echo "<a id=\"top\"></a>";
+    oplogs("$aup_username", "29", "", "", "");
+    echo "<ul>\n";
+    echo "<li><a href=\"#status\">$l_au_summary_s</a></li>\n";
+    echo "<li><a href=\"#home\">$l_au_summary_h</a></li>\n";
+    echo "<li><a href=\"#crontab\">$l_au_summary_c</a></li>\n";
+    echo "<li><a href=\"#database\">$l_au_summary_d</a></li>\n";
+    echo "<li><a href=\"#processes\">$l_au_summary_p</a></li>\n";
+    echo "</ul>\n";
+    echo "<br />\n";
+    echo "<blockquote>\n";
+    $filetoopen = $pathtouserdata . "/".$aup_username.".txt";
+    if (file_exists($filetoopen)) {
+      $openfile = @fopen($filetoopen, "r");
+      if ($openfile) {
+        while (($fileline = fgets($openfile, 4096)) !== false) {
+          echo $fileline;
+        }
+        if (!feof($openfile)) {
+          echo "$l_au_summaryfailed.<br />\n";
+        }
+        fclose($openfile);
+      }
+    } else {
+      echo "$l_au_summarynoexists<br />\n";
+    }
+    echo "</blockquote>\n";
+    echo "</div>\n";
+  } elseif ($in_unblock == 1) {
     if ($in_confirm == 1) {
       echo "<div class=\"title\"><strong>$l_au_unblockuserop</strong></div>\n";
       echo "<div class=\"table-responsive-sm\">\n";
@@ -860,7 +1126,7 @@
       $error = 0;
       $errortext = "";
       $errorgraph = "";
-      eval_null("$in_info", "Info");
+      eval_null("$in_info", "$l_nullinfo");
       if ($in_confirm == 1 ) {
         echo "<div class=\"title\"><strong>$l_au_infomod</strong></div>\n";
         echo "<div class=\"table-responsive-sm\">\n";
@@ -929,7 +1195,7 @@
       table_row("fa fa-user-o", "$l_au_uid:", "", "none", "$aup_uid");
       table_row("fa fa-user-circle-o", "$l_au_gid:", "", "none", "$aup_gid");
       table_row("fa fa-user", "$l_au_username:", "", "none", "$aup_username");
-      table_row("fa fa-info", "$l_au_info:", "in_info", "text", "$aup_info", "Info");
+      table_row("fa fa-info", "$l_au_info:", "in_info", "text", "$aup_info", "$l_au_info");
       echo "<input name=\"in_user\" value=\"$in_user\" type=\"hidden\">\n";
       echo "<input name=\"in_modinfo\" value=\"1\" type=\"hidden\">\n";
       echo "<input name=\"in_doit\" value=\"1\" type=\"hidden\">\n";
@@ -1173,6 +1439,24 @@
     $moduserquota .= "<button type=\"submit\" class=\"btn btn-sm btn-link btn-glink\"><i class=\"fa fa-pencil-square-o\"></i></button>\n";
     $moduserquota .= "</form>\n";
     table_row("fa fa-hdd-o", "$l_au_quota:", "", "none", "<pre>$aup_quota</pre>$moduserquota");
+    $accsummary  = "<form method=\"post\" action=\"".$_SERVER['PHP_SELF']."?action=admusers\">\n";
+    $accsummary .= "<input name=\"in_user\" value=\"$in_user\" type=\"hidden\">\n";
+    $accsummary .= "<input name=\"in_summary\" value=\"1\" type=\"hidden\">\n";
+    $accsummary .= "<button type=\"submit\" class=\"btn btn-sm btn-link btn-glink\"><i class=\"fa fa-times-circle-o\"></i> $l_au_summaryv</button>\n";
+    $accsummary .= "</form>\n";
+    table_row("fa fa-code-o", "$l_au_summary:", "", "none", "$accsummary");
+    $accpassword  = "<form method=\"post\" action=\"".$_SERVER['PHP_SELF']."?action=admusers\">\n";
+    $accpassword .= "<input name=\"in_user\" value=\"$in_user\" type=\"hidden\">\n";
+    $accpassword .= "<input name=\"in_accpass\" value=\"1\" type=\"hidden\">\n";
+    $accpassword .= "<button type=\"submit\" class=\"btn btn-sm btn-link btn-glink\"><i class=\"fa fa-times-circle-o\"></i> Cambiar contrase&ntilde;a de la cuenta</button>\n";
+    $accpassword .= "</form>\n";
+    table_row("fa fa-code-o", "$l_password:", "", "none", "$accpassword");
+    $dbupassword  = "<form method=\"post\" action=\"".$_SERVER['PHP_SELF']."?action=admusers\">\n";
+    $dbupassword .= "<input name=\"in_user\" value=\"$in_user\" type=\"hidden\">\n";
+    $dbupassword .= "<input name=\"in_dbupass\" value=\"1\" type=\"hidden\">\n";
+    $dbupassword .= "<button type=\"submit\" class=\"btn btn-sm btn-link btn-glink\"><i class=\"fa fa-times-circle-o\"></i> Cambiar contrase&ntilde;a de acceso a la base de datos</button>\n";
+    $dbupassword .= "</form>\n";
+    table_row("fa fa-code-o", "$l_database:", "", "none", "$dbupassword");
     $blockuser  = "<form method=\"post\" action=\"".$_SERVER['PHP_SELF']."?action=admusers\">\n";
     $blockuser .= "<input name=\"in_user\" value=\"$in_user\" type=\"hidden\">\n";
     $blockuser .= "<input name=\"in_block\" value=\"1\" type=\"hidden\">\n";
