@@ -442,7 +442,62 @@
       $s_log .= "'$fecha', '$hora', '$po->op_id', '$command', ";
       $s_log .= "'$outputstring', '$return_var');";
       $w_log = db_query($s_log);
+    } elseif ($po->ot_id==30) {
+      // This is a user pass change
+      $command = "/usr/bin/echo \"$po->ot_d_flags\" | /usr/bin/passwd --stdin $po->ot_d_username";
+      unset($output);
+      unset($return_var);
+      exec($command, $output, $return_var);
+      $counter = 0;
+      $outputstring = "";
+      while ($counter < count($output)) {
+        $outputstring .= $output[$counter];
+        $counter++;
+      }
+      $return_vars = $return_var;
+      $s_log  = "insert into TRANSACTIONLOG (tl_date, tl_time, op_id, ";
+      $s_log .= "tl_command, tl_output, tl_returnvar) values(";
+      $s_log .= "'$fecha', '$hora', '$po->op_id', '$command', ";
+      $s_log .= "'$outputstring', '$return_var');";
+      $w_log = db_query($s_log);
+      $command = "/usr/bin/passwd -e $po->ot_d_username";
+      unset($output);
+      unset($return_var);
+      exec($command, $output, $return_var);
+      $counter = 0;
+      $outputstring = "";
+      while ($counter < count($output)) {
+        $outputstring .= $output[$counter];
+        $counter++;
+      }
+      $return_vars .= $return_var;
+      $s_log  = "insert into TRANSACTIONLOG (tl_date, tl_time, op_id, ";
+      $s_log .= "tl_command, tl_output, tl_returnvar) values(";
+      $s_log .= "'$fecha', '$hora', '$po->op_id', '$command', ";
+      $s_log .= "'$outputstring', '$return_var');";
+      $w_log = db_query($s_log);
+      $return_var = $return_vars;
+    } elseif ($po->ot_id==31) {
+      // This is a db user pass change
+      $command = "SET PASSWORD FOR $po->ot_d_username@localhost=PASSWORD('$po->ot_d_flags');";
+      $respuesta = db_query($command);
+      unset($output);
+      unset($return_var);
+      $return_var = $dblink->errno;
+      $outputstring = $dblink->error;
+      $command = str_replace("'", "\'", $command);
+      $s_log  = "insert into TRANSACTIONLOG (tl_date, tl_time, op_id, ";
+      $s_log .= "tl_command, tl_output, tl_returnvar) values(";
+      $s_log .= "'$fecha', '$hora', '$po->op_id', '$command', ";
+      $s_log .= "'$outputstring', '$return_var');";
+      $w_log = db_query($s_log);
     }
+    echo "[".date("Y-m-i H:i:s")."]   Marking operation as finished\n";
+    $return_var = str_replace("\n", "", $return_var);
+    $os  = "update OPERATIONS set os_id='3', ot_d_result='$return_var' ";
+    $os .= " where op_id='$po->op_id' limit 1;";
+    $doit = db_query($os);
+    echo "[".date("Y-m-i H:i:s")."] -----------------------------------\n";
     echo "[".date("Y-m-i H:i:s")."]   Marking operation as finished\n";
     $return_var = str_replace("\n", "", $return_var);
     $os  = "update OPERATIONS set os_id='3', ot_d_result='$return_var' ";
