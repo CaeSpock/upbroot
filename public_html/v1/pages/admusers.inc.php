@@ -1448,13 +1448,13 @@
     $accpassword  = "<form method=\"post\" action=\"".$_SERVER['PHP_SELF']."?action=admusers\">\n";
     $accpassword .= "<input name=\"in_user\" value=\"$in_user\" type=\"hidden\">\n";
     $accpassword .= "<input name=\"in_accpass\" value=\"1\" type=\"hidden\">\n";
-    $accpassword .= "<button type=\"submit\" class=\"btn btn-sm btn-link btn-glink\"><i class=\"fa fa-times-circle-o\"></i> Cambiar contrase&ntilde;a de la cuenta</button>\n";
+    $accpassword .= "<button type=\"submit\" class=\"btn btn-sm btn-link btn-glink\"><i class=\"fa fa-times-circle-o\"></i> $l_au_accpasschange</button>\n";
     $accpassword .= "</form>\n";
     table_row("fa fa-code-o", "$l_password:", "", "none", "$accpassword");
     $dbupassword  = "<form method=\"post\" action=\"".$_SERVER['PHP_SELF']."?action=admusers\">\n";
     $dbupassword .= "<input name=\"in_user\" value=\"$in_user\" type=\"hidden\">\n";
     $dbupassword .= "<input name=\"in_dbupass\" value=\"1\" type=\"hidden\">\n";
-    $dbupassword .= "<button type=\"submit\" class=\"btn btn-sm btn-link btn-glink\"><i class=\"fa fa-times-circle-o\"></i> Cambiar contrase&ntilde;a de acceso a la base de datos</button>\n";
+    $dbupassword .= "<button type=\"submit\" class=\"btn btn-sm btn-link btn-glink\"><i class=\"fa fa-times-circle-o\"></i> $l_au_dbupasschange</button>\n";
     $dbupassword .= "</form>\n";
     table_row("fa fa-code-o", "$l_database:", "", "none", "$dbupassword");
     $blockuser  = "<form method=\"post\" action=\"".$_SERVER['PHP_SELF']."?action=admusers\">\n";
