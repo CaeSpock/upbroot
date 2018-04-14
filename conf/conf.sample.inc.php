@@ -20,7 +20,7 @@
 
   // Please dont change this, in order to respect GPL
    $surp_sitecr = "&copy; 2018 - UPB La Paz";
-  $surp_sitever = "1.0.1";
+  $surp_sitever = "1.0.2";
   $surp_autname = "Carlos Anibarro";
   $surp_autmail = "carlosanibarro@lp.upb.edu";
 
