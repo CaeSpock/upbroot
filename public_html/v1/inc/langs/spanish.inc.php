@@ -197,6 +197,8 @@
   $l_au_nocrontab = "Sin fichero de crontab";
   $l_au_nodbdir = "Sin directorio de base de datos personal";
   $l_au_backtotop = "[^ Arriba ^]";
+  $l_au_dbupass = "Modificaci&oacute;n de la contrase&ntilde;a de acceso a la base de datos";
+  $l_au_accpass = "Modificaci&oacute;n de la contrase&ntilde;a del usuario";
   
     // Admin Groups
   $l_ag_groupname = "Nombre del Grupo";
