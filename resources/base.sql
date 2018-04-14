@@ -122,7 +122,10 @@ INSERT INTO `OPERATIONTYPES` (`ot_id`, `ot_short`, `ot_value`, `ot_showinlogs`) 
 INSERT INTO `OPERATIONTYPES` (`ot_id`, `ot_short`, `ot_value`, `ot_showinlogs`) VALUES (25, 'AdmUsers_BlockUser', 'AdmUsers Bloquear usuario', '1');
 INSERT INTO `OPERATIONTYPES` (`ot_id`, `ot_short`, `ot_value`, `ot_showinlogs`) VALUES (26, 'AdmUsers_UnblockUser', 'AdmUsers Desbloquear usuario', '1');
 INSERT INTO `OPERATIONTYPES` (`ot_id`, `ot_short`, `ot_value`, `ot_showinlogs`) VALUES (27, 'AdmUsers_AddDB', 'AdmUsers Add DataBase', '1');
-INSERT INTO `OPERATIONTYPES` (`ot_id`, `ot_short`, `ot_value`, `ot_showinlogs`) VALUES (28, 'AdmUsers_AddDB_USer', 'AdmUsers DataBase User', '1');
+INSERT INTO `OPERATIONTYPES` (`ot_id`, `ot_short`, `ot_value`, `ot_showinlogs`) VALUES (28, 'AdmUsers_AddDB_User', 'AdmUsers DataBase User', '1');
+INSERT INTO `OPERATIONTYPES` (`ot_id`, `ot_short`, `ot_value`, `ot_showinlogs`) VALUES (29, 'AdmUsers_ViewResume', 'ADMUsers View User Resume', '0');
+INSERT INTO `OPERATIONTYPES` (`ot_id`, `ot_short`, `ot_value`, `ot_showinlogs`) VALUES (30, 'AdmUsers_UpdUserPass', 'ADMUsers Update User Password', '1');
+INSERT INTO `OPERATIONTYPES` (`ot_id`, `ot_short`, `ot_value`, `ot_showinlogs`) VALUES (31, 'AdmUsers_UpdDBPass', 'ADMUsers DataBase User Password', '1');
 UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `OPLOGS`;
