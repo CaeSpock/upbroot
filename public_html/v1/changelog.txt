@@ -1,3 +1,8 @@
+20180413: Versión 1.0.2
+          Adición de Cambio de contrasña de usuarios, cambio de contraseña de acceso a la base de datos
+          Adición de extracto de resumen de la cuenta
+          Procesos actualizados
+          Traducciones corregidas
 20180328: Versión 1.0.1
           Adición de creado y borrado de bases de datos y usuarios de bases de datos para las cuentas de usuario
           Se separó los path del código principal de las páginas index.php y sistema.php, y del script runtasts.php
