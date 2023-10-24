@@ -24,10 +24,10 @@
   $in_address     = receive_variable("POST", "in_address", "STRING", 1000);
   $in_department  = receive_variable("POST", "in_department", "INT", 2);
   $in_status      = receive_variable("POST", "in_status", "INT", 2);
-  $in_level       = receive_variable("POST", "in_level", "INT", 2);
+  $in_level       = receive_variable("POST", "in_level", "INT", 3);
   $in_username    = receive_variable("POST", "in_username", "STRING", 32);
   $in_password    = receive_variable("POST", "in_password", "STRING", 100);
-
+  
   if ($in_upd == 1) {
     if ($in_doit == 1) {
       $error = 0;
@@ -423,7 +423,7 @@
         $logflags .= "$in_name|$in_idc|$in_year-$in_month-$in_day|$in_email|$in_phonenumber|";
         $logflags .= "$row_c->city_name|$in_address|$row_d->department_name|$surc_user|";
         $logflags .= "$surv_user_name|$user_ip|$date $time|3|";
-        oplogs("$in_username", "24", "$logflags", "");
+//        oplogs("$in_username", "24", "$logflags", "");
         echo "<div class=\"card\">\n";
         echo "  <h5 class=\"card-header\"><i class=\"fa fa-exclamation-circle\"></i> $l_au_important</h5>\n";
         echo "  <div class=\"card-body\">\n";
