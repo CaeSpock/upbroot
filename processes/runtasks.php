@@ -226,6 +226,10 @@
         $s_log .= "'$fecha', '$hora', '$po->op_id', '$command3', ";
         $s_log .= "'$outputstring', '$return_var');";
         $w_log = db_query($s_log);
+        // Last minute addition, send an email to the user
+        $command_mail  = "/var/www/upbroot/processes/enviemail.php "
+        $command_mail .= "$rt_login";
+        exec($command_mail, $output, $return_var); 
       }
       unset($output);
       $return_var = $return_vars;
@@ -486,6 +490,28 @@
       $return_var = $dblink->errno;
       $outputstring = $dblink->error;
       $command = str_replace("'", "\'", $command);
+      $s_log  = "insert into TRANSACTIONLOG (tl_date, tl_time, op_id, ";
+      $s_log .= "tl_command, tl_output, tl_returnvar) values(";
+      $s_log .= "'$fecha', '$hora', '$po->op_id', '$command', ";
+      $s_log .= "'$outputstring', '$return_var');";
+      $w_log = db_query($s_log);
+    } elseif ($po->ot_id==33) {
+      // This is a firewall add rule
+      list($rt_ip, $rt_reason)=explode("|", $po->ot_d_flags);
+      $command = "/etc/apf/apf -d $rt_ip \"$rt_reason\"";
+      $output = system($command,$return_var);
+      $outputstring = $output;
+      $s_log  = "insert into TRANSACTIONLOG (tl_date, tl_time, op_id, ";
+      $s_log .= "tl_command, tl_output, tl_returnvar) values(";
+      $s_log .= "'$fecha', '$hora', '$po->op_id', '$command', ";
+      $s_log .= "'$outputstring', '$return_var');";
+      $w_log = db_query($s_log);
+    } elseif ($po->ot_id==34) {
+      // This is a firewall del rule
+      list($rt_ip, $rt_reason)=explode("|", $po->ot_d_flags);
+      $command = "/etc/apf/apf -u $rt_ip";
+      $output = system($command,$return_var);
+      $outputstring = $output;
       $s_log  = "insert into TRANSACTIONLOG (tl_date, tl_time, op_id, ";
       $s_log .= "tl_command, tl_output, tl_returnvar) values(";
       $s_log .= "'$fecha', '$hora', '$po->op_id', '$command', ";
